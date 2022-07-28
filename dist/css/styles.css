@@ -1,0 +1,97 @@
+.locTabContainer {
+  width: 100%;
+  height: 100%;
+  padding-top: 15px;
+}
+
+.locTabTop {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 15px;
+}
+
+.locTabTopImg {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+}
+
+.locTabTopBtn {
+  position: absolute;
+  width: 100%;
+  top: 170px;
+  left: 40px;
+}
+
+.locTabBottom {
+  display: flex;
+  flex-direction: column;
+}
+
+.locTabBottomRow {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.locTabBottomImg {
+  width: 48%;
+  height: 200px;
+  border-radius: 10px;
+}/*# sourceMappingURL=styles.css.map */on: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.destButtonTrans {
+  width: 30%;
+  height: 100px;
+  background-color: #CF7B3F;
+  border-radius: 5px 20px 5px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+}
+
+.destButtonText {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.destButtonSubText {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+}/*# sourceMappingURL=styles.css.map */justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6666666667);
+}
+
+.modalView {
+  margin: 20px;
+  background-color: #ffffff;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.modalItem {
+  background-color: #dbdbdb;
+  width: 370px;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 8px;
+}
+
+.modalItemText {
+  font-size: 20px;
+  font-weight: 400;
+  color: #000000;
+}/*# sourceMappingURL=styles.css.map */

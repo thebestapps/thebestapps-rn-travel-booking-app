@@ -1,0 +1,47 @@
+@import "../../../../global.scss";
+
+.locTabContainer{
+    width: 100%;
+    height: 100%;
+    padding-top: 15px;
+}
+
+.locTabTop{
+    width: 100%;
+    height: 300px;
+    margin-bottom: 15px;
+}
+
+.locTabTopImg{
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+}
+
+.locTabTopBtn{
+    position: absolute;
+    width: 100%;
+    top: 170px;
+    left: 40px;
+}
+
+.locTabBottom{
+    display: flex;
+    flex-direction: column;
+}
+
+.locTabBottomRow{
+    width: 100%;
+    height: 200px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.locTabBottomImg{
+    width: 48%;
+    height: 200px;
+    border-radius: 10px;
+}
