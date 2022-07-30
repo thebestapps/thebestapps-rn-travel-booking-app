@@ -9,7 +9,7 @@ const initialState = {
 const authReducers = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOG_IN:
-      return { ...state, userData: action.payload, isAuthenticated: true };
+      return { ...state, userData: action.payload, isAuthenticated: false };
     case actionTypes.TOKEN_FETCH:
       return { ...state, isAuthenticated: true };
     case actionTypes.REFRESH_TOKEN:
