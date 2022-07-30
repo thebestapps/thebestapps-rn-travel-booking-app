@@ -1,48 +1,63 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { useDispatch } from "react-redux";
 import * as actionTypes from "../../redux/actionTypes";
-import EncryptedStorage from 'react-native-encrypted-storage';
-import Button3 from '../../components/form-elements/button/Button3';
-import ActionBar2 from '../../components/actionBar/ActionBar2';
+import EncryptedStorage from "react-native-encrypted-storage";
+import Button3 from "../../components/form-elements/button/Button3";
+import ActionBar2 from "../../components/actionBar/ActionBar2";
 
-import styles from '../../../global';
+import styles from "../../../global";
 
-const HomePage = ({navigation}) => {
+const HomePage = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const onClickHandler = () => {
-    navigation.navigate('Search')
-  }
+    navigation.navigate("Search");
+  };
 
   const onLogoutHandler = async () => {
-    try{
+    try {
       await EncryptedStorage.clear();
-      dispatch({type: actionTypes.LOG_OUT});
-    }catch (error){ 
-      console.log(error)
+      dispatch({ type: actionTypes.LOG_OUT });
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   return (
     <View style={[styles.background, style.home]}>
       <View>
-      <ActionBar2 navigation={navigation} title={""}/>
-      <Text style={styles.heading}>Hi Surya, what brings you to Getout Travel today?</Text>
+        <ActionBar2 navigation={navigation} title={""} />
+        <Text style={styles.heading}>
+          Hi Surya, what brings you to Getout Travel today?
+        </Text>
       </View>
       <View style={style.home__myTrips}>
-        <Text style={[styles.heading, {marginTop: 20, marginLeft: 20 , position: 'absolute', top: 0, left: 0}]}>My Trips</Text>
+        <Text
+          style={[
+            styles.heading,
+            {
+              marginTop: 20,
+              marginLeft: 20,
+              position: "absolute",
+              top: 0,
+              left: 0,
+            },
+          ]}
+        >
+          My Trips
+        </Text>
         <Button3 title="Start new" onPress={onClickHandler} />
         <Button3 title="Existing" onPress={onLogoutHandler} />
       </View>
     </View>
-  )
-}
+  );
+};
 
 const style = StyleSheet.create({
   home: {
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   home__myTrips: {
     width: "100%",
@@ -57,10 +72,8 @@ const style = StyleSheet.create({
     alignItems: "center",
     elevation: 4,
 
-    marginBottom: 80
-},
-})
-
-
+    marginBottom: 80,
+  },
+});
 
 export default HomePage;

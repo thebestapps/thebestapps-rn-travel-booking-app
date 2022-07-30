@@ -1,81 +1,107 @@
-import React, { useState, useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchToken } from '../redux/actions/authActions';
+import React, { useState, useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchToken } from "../redux/actions/authActions";
 
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 //Views
-import Map from '../views/mapPage/Map';
-import Auth from '../views/authPage/Auth';
-import HomePage from '../views/homePage/HomePage';
-import SearchPage from '../views/searchPage/SearchPage';
-import DestinationPage from '../views/destinationPage/DestinationPage';
-import LocationTab from '../views/destinationPage/locationTab/LocationTab';
-import SavedTab from '../views/destinationPage/savedTab/SavedTab';
-import DestinationTab from '../views/destinationPage/destinationsTab/DestinationTab';
-import NavDrawer from '../views/navDrawerPage/NavDrawer';
+import Map from "../views/mapPage/Map";
+import Auth from "../views/authPage/Auth";
+import HomePage from "../views/homePage/HomePage";
+import SearchPage from "../views/searchPage/SearchPage";
+import DestinationPage from "../views/destinationPage/DestinationPage";
+import LocationTab from "../views/destinationPage/locationTab/LocationTab";
+import SavedTab from "../views/destinationPage/savedTab/SavedTab";
+import DestinationTab from "../views/destinationPage/destinationsTab/DestinationTab";
+import NavDrawer from "../views/navDrawerPage/NavDrawer";
+import FlightListPage from "../views/flightPage/FlightListPage";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
-const Tabs = ({navigation}) => {
+const Tabs = ({ navigation }) => {
   return (
     <>
-    <DestinationPage nav={navigation}/>
+      <DestinationPage nav={navigation} />
       <Tab.Navigator
-        initialRouteName='Loction'
-        tabBarPosition='top'
+        initialRouteName="Loction"
+        tabBarPosition="top"
         screenOptions={{
-          tabBarLabelStyle: { fontSize: 12, fontWeight: "600"},
-          tabBarStyle: { backgroundColor: 'white' },
+          tabBarLabelStyle: { fontSize: 12, fontWeight: "600" },
+          tabBarStyle: { backgroundColor: "white" },
         }}
       >
-        <Tab.Screen 
+        <Tab.Screen
           name="Location"
           component={LocationTab}
-          options={{tabBarLabel: 'Location'}}
+          options={{ tabBarLabel: "Location" }}
         />
 
-        <Tab.Screen 
+        <Tab.Screen
           name="Destination"
           component={DestinationTab}
-          options={{tabBarLabel: 'Destinations'}}
+          options={{ tabBarLabel: "Destinations" }}
         />
 
-        <Tab.Screen 
+        <Tab.Screen
           name="Saved"
           component={SavedTab}
-          options={{tabBarLabel: 'Saved'}}
+          options={{ tabBarLabel: "Saved" }}
         />
       </Tab.Navigator>
     </>
-  )
-}
+  );
+};
 
 const PrivateStack = () => {
-  return(
+  return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomePage} options={{headerShown: false}}/>
-      <Stack.Screen name="Search" component={SearchPage} options={{headerShown: false}}/>
+      <Stack.Screen
+        name="Home"
+        component={HomePage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Search"
+        component={SearchPage}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Map" component={Map} />
-      <Stack.Screen name="Destination" component={Tabs} options={{headerShown: false}}/>
-      <Stack.Screen name="Drawer" component={NavDrawer} options={{headerShown: false}}/>
+      <Stack.Screen
+        name="Destination"
+        component={Tabs}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Drawer"
+        component={NavDrawer}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="FlightList"
+        component={FlightListPage}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
 const AuthStack = () => {
-  return(
+  return (
     <Stack.Navigator>
-      <Stack.Screen name="Auth" component={Auth} options={{headerShown: false}} />
+      <Stack.Screen
+        name="Auth"
+        component={Auth}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
 const RootNavigation = () => {
-  const { isAuthenticated, userData} = useSelector(state => state.auth);
+  const { isAuthenticated, userData } = useSelector((state) => state.auth);
   // const token = userData?.data?.access_token?.token;
 
   const dispatch = useDispatch();
@@ -83,23 +109,17 @@ const RootNavigation = () => {
 
   useEffect(() => {
     dispatch(fetchToken(setLoading));
-  },[])
+  }, []);
 
   useEffect(() => {
     // dispatch(fetchToken(setLoading));
-  },[isAuthenticated])
+  }, [isAuthenticated]);
 
   return (
     <NavigationContainer>
-      {isAuthenticated
-      ?
-        <PrivateStack />
-      :
-        <AuthStack />
-      }
-      
+      {isAuthenticated ? <PrivateStack /> : <AuthStack />}
     </NavigationContainer>
-  )
-}
+  );
+};
 
 export default RootNavigation;
