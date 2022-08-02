@@ -54,6 +54,10 @@ const Data = {
   travelerName: "",
 };
 
+const demo = {
+  "source": "JFK",
+  "destination": "BOS"
+}
 const Flights = () => {
   const navigation = useNavigation();
   const [formData, setFormData] = useState(Data);
@@ -309,6 +313,7 @@ const Flights = () => {
         open={showLoader}
         setOpen={setShowLoader}
         isLoading={true}
+        data={demo}
       />
     </View>
   );

@@ -17,6 +17,7 @@ import SavedTab from "../views/destinationPage/savedTab/SavedTab";
 import DestinationTab from "../views/destinationPage/destinationsTab/DestinationTab";
 import NavDrawer from "../views/navDrawerPage/NavDrawer";
 import FlightListPage from "../views/flightPage/FlightListPage";
+import ProfileEdit from "../views/profile/ProfileEdit";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -83,6 +84,14 @@ const PrivateStack = () => {
         name="FlightList"
         component={FlightListPage}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Profile Edit"
+        component={ProfileEdit}
+        options={{
+          headerShown: true,
+          title: 'Personal Info'
+        }}
       />
     </Stack.Navigator>
   );

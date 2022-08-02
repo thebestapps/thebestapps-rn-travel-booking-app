@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Modal,
@@ -16,13 +16,20 @@ import {
 import { Colors } from "../../../theme/Colors";
 import { FontSizes } from "../../../theme/FontSize";
 const { height, width } = Dimensions.get("window");
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import global from "../../../global";
 import { FontFamily } from "../../../theme/FontFamily";
 import { Images } from "../../../constants/images";
 import { searchFlight } from "../../../constants/texts";
 
-const SearchFlightModal = ({ open, setOpen, isLoading }) => {
+const SearchFlightModal = ({ open, setOpen, isLoading, data }) => {
+  const [destination, setDestination] = useState("");
+  const [source, setSource] = useState("");
+  useEffect(() => {
+    async function fetchData() {
+      console.log(data)
+    }
+  }, []);
   return (
     <Modal
       animationType="slide"
@@ -35,9 +42,7 @@ const SearchFlightModal = ({ open, setOpen, isLoading }) => {
       <View style={style.modal}>
         <View style={style.modal__childContainer}>
           <TouchableOpacity onPress={() => setOpen(!open)}>
-            <Text style={style.modal__iconClose}>
-              {searchFlight.closeBtnTxt}
-            </Text>
+            <AntDesign name="close" size={21} color="white" style={{left:"90%", top: 10}}/>
           </TouchableOpacity>
           <Text style={style.modal__title}>{searchFlight.titleText}</Text>
           <Image
@@ -45,6 +50,10 @@ const SearchFlightModal = ({ open, setOpen, isLoading }) => {
             source={Images.flightSearch}
             resizeMode={"contain"}
           />
+          <View style={{flexDirection:"row", justifyContent:"space-between", marginLeft: "9%", marginRight: "10%", marginTop: -15, marginBottom: 25}}>
+            <Text style={{color:"white", fontSize: 15, fontWeight:"bold"}}>JFK</Text>
+            <Text style={{color:"white", fontSize: 15, fontWeight:"bold"}}>BOS</Text>
+          </View>
           <View style={style.modal__content}>
             {isLoading && (
               <ActivityIndicator

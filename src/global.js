@@ -74,6 +74,14 @@ export default StyleSheet.create({
         left: 0,
         zIndex: 10000
     },
+    actionBar__backBtnIcon: {
+        position: "absolute",
+        width: 400,
+        height: 150,
+        top: 17,
+        left: 0,
+        zIndex: 10000
+    },
     actionBar__title: {
         width: "100%",
         fontSize: FontSizes.fontSize_xl,
