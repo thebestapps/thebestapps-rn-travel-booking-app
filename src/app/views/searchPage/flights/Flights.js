@@ -65,7 +65,7 @@ const Flights = () => {
   const [on, off] = useState(false);
   const [travelerOpen, setTravlerOpen] = useState(false);
   const Z = useSharedValue(117);
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -80,6 +80,13 @@ const Flights = () => {
     }
     fetchData();
   }, []);
+
+  const popup = () => {
+    setShowLoader(true);
+    setTimeout(() => {
+      navigation.navigate("FlightList");
+    },1200);
+  };
 
   const setData = (value, name) => {
     setFormData({ ...formData, [name]: value });
@@ -304,9 +311,7 @@ const Flights = () => {
       >
         <Button3
           title="Find Flights"
-          onPress={() => {
-            navigation.navigate("FlightList");
-          }}
+          onPress={popup}
         />
       </LinearGradient>
       <SearchFlightModal
