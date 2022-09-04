@@ -105,7 +105,7 @@ const SearchPage = ({navigation}) => {
             <PanGestureHandler onGestureEvent={animatedGestureHandler2}>
               <Animated.View style={[style.swipBtn2, AnimatedStyles2.swipeable]} />
             </PanGestureHandler>
-            <Pressable  onPress={() => {Y.value = withSpring(-27, {damping: 20, stiffness: 500}); setMode(0)}}>
+            <Pressable onPress={() => {Y.value = withSpring(-27, {damping: 20, stiffness: 500}); setMode(0)}}>
               <Image 
                 style={[style.modeImg, {transform: [{ rotate: '45deg'}], opacity: (mode === 0) ? 1 : 0.4}]}
                 source={require("../../../assets/icon/flight2.png")} />

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {
   Image,
   View,
@@ -12,12 +12,12 @@ import { Images } from "../../../constants/images";
 import { FontFamily, FontWeight } from "../../../theme/FontFamily";
 import { FontSizes } from "../../../theme/FontSize";
 import { flightList } from "../../../constants/texts";
-import FlightSubListItem from '../../components/flights/FlightSubListItem'
-
 import dayjs from "dayjs";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
-const FlightListItem = ({ navigation, item, index, onPress }) => {
+import AppContext from "../../context/AppContext";
+
+const FlightSubListItem = ({ item, index, onPress }) => {
   // const ft = dayjs(`2000-01-01 ${item.start_time}`);
   // const tt = dayjs(`2000-01-01 ${item.end_time}`);
   // const mins = tt.diff(ft, "minutes", true);
@@ -25,42 +25,27 @@ const FlightListItem = ({ navigation, item, index, onPress }) => {
   // const totalMins = dayjs().minute(mins).$m;
 
   // console.log(totalHours, totalMins);
+  const navigation = useNavigation();
 
-  const [expanded, isExpanded] = useState(false)
+  const {firstTrip, setFirstTrip, secondTrip, setSecondTrip} = useContext(AppContext);
+
+  const setSelect = (d1, d2) =>{
+    if(!firstTrip)
+    {
+      setFirstTrip(d1 + " " + d2);
+    } else {
+      setSecondTrip(d1 + " " + d2);
+    }
+    if(firstTrip && secondTrip){
+      navigation.navigate('Checkout')
+    }
+  }
+
 
   return (
-    <TouchableOpacity style={{ marginHorizontal: 15 }} onPress={() => expanded ?  isExpanded(false) :  isExpanded(true)}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            height: index === 1 || index === 4 ? 25 : 40,
-            width: 40,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            source={item.airline_logo}
-            style={{
-              width: "100%",
-              height: "100%",
-              alignSelf: "center",
-            }}
-            resizeMode={"contain"}
-          />
-        </View>
-        <Text
-          style={style.airline__text}
-        >{`${item.airline_name}. 1h 43m`}</Text>
-      </View>
-      <View style={{ alignItems: "flex-end", marginRight: 15 }}>
-        <Text style={style.airline__from}>{flightList.from}</Text>
-      </View>
+    <TouchableOpacity onPress={() => null}>
+     
+      
       <View
         style={{
           flexDirection: "row",
@@ -68,6 +53,8 @@ const FlightListItem = ({ navigation, item, index, onPress }) => {
           justifyContent: "space-between",
           paddingBottom: 10,
           paddingHorizontal: 15,
+          borderTopColor: '#ccc',
+          borderTopWidth: 1
         }}
       >
         <View
@@ -80,27 +67,31 @@ const FlightListItem = ({ navigation, item, index, onPress }) => {
         >
           <View
             style={{
-              width: "35%",
+              width: "15%",
               height: "100%",
             }}
           >
-            <Text style={style.airline__time}>{item.start_time}</Text>
-            <Text style={style.airline__places}>{item.boarding_point}</Text>
+            <Image
+            source={item.airline_logo}
+            style={{
+              width: 60,
+              height: 90,
+              alignSelf: "center",
+            }}
+          />
           </View>
+         
           <View
             style={{
-              width: "30%",
+              width: "65%",
               height: "100%",
-            }}
-          ></View>
-          <View
-            style={{
-              width: "35%",
-              height: "100%",
+              paddingLeft: 20,
+              paddingTop: 10,
             }}
           >
-            <Text style={style.airline__time}>{item.end_time}</Text>
+            
             <Text style={style.airline__places}>{item.boarding_point}</Text>
+            <Text style={style.airline__time}>Main Cabin</Text>
           </View>
         </View>
         <View
@@ -114,20 +105,15 @@ const FlightListItem = ({ navigation, item, index, onPress }) => {
           <Text style={style.airline__policy}>
             {item.is_under_policy ? flightList.outPolicy : ""}
           </Text>
+          <Text>{firstTrip}</Text>
+          <TouchableOpacity onPress={() => setSelect(item.boarding_point, item.price)} style={{backgroundColor: '#0F3A99', paddingVertical: 5, paddingHorizontal:20, borderRadius:20, marginTop:10}}><Text style={{color: '#fff'}}>Select</Text></TouchableOpacity>
         </View>
       </View>
-      {expanded && 
-        <View>
-          <FlightSubListItem item={item} navigation={navigation} />
-          <FlightSubListItem item={item} navigation={navigation}  />
-          <FlightSubListItem item={item} navigation={navigation}  />
-        </View>
-      }
     </TouchableOpacity>
   );
 };
 
-export default FlightListItem;
+export default FlightSubListItem;
 
 const style = StyleSheet.create({
   airline__text: {

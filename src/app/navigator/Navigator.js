@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,8 @@ import DestinationTab from "../views/destinationPage/destinationsTab/Destination
 import NavDrawer from "../views/navDrawerPage/NavDrawer";
 import FlightListPage from "../views/flightPage/FlightListPage";
 import ProfileEdit from "../views/profile/ProfileEdit";
+
+import AppContext from "../context/AppContext";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -124,9 +126,17 @@ const RootNavigation = () => {
     // dispatch(fetchToken(setLoading));
   }, [isAuthenticated]);
 
+  const [ firstTrip, setFirstTrip] = useState('')
+  const [ secondTrip, setSecondTrip] = useState('')
+
+  const value = useMemo(() => ({ firstTrip, setFirstTrip, secondTrip, setSecondTrip }), [firstTrip, secondTrip]);
+
+
   return (
     <NavigationContainer>
+      <AppContext.Provider value={value}>
       {isAuthenticated ? <PrivateStack /> : <AuthStack />}
+      </AppContext.Provider>
     </NavigationContainer>
   );
 };

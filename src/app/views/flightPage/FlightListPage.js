@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -24,7 +24,12 @@ import FlightListActionBar from "../../components/actionBar/FlightListActionBar"
 import ChipList from "../../components/chip-lists/ChipList";
 import FlightListItem from "../../components/flights/FlightListItem";
 
+import AppContext from "../../context/AppContext";
+
 const FlightListPage = ({ navigation }) => {
+
+const {firstTrip, secondTrip} = useContext(AppContext)
+
   const dispatch = useDispatch();
 
   return (
@@ -37,6 +42,8 @@ const FlightListPage = ({ navigation }) => {
         selectedDate={Date.now()}
       />
       <ChipList chipListData={flightListFilter} />
+      <Text>First Trip Selected: {firstTrip}</Text>
+      <Text>Second Trip Selected: {secondTrip}</Text>
       <View>
         <View>
           <FlatList
