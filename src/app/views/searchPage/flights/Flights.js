@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -34,6 +34,8 @@ import global from "../../../../global";
 import { Spacing } from "../../../../theme/Spacing";
 import { useNavigation } from "@react-navigation/native";
 
+import AppContext from "../../../context/AppContext";
+
 const Data = {
   destination: {
     location: "",
@@ -66,6 +68,8 @@ const Flights = () => {
   const [travelerOpen, setTravlerOpen] = useState(false);
   const Z = useSharedValue(117);
   const [showLoader, setShowLoader] = useState(false);
+
+  const {setIsOneWay} = useContext(AppContext);
 
   useEffect(() => {
     async function fetchData() {
@@ -138,7 +142,7 @@ const Flights = () => {
               style={{ color: mode === 0 ? Colors.blackText : Colors.subText }}
               onPress={() => {
                 Z.value = withSpring(0, { damping: 20, stiffness: 500 });
-                setMode(0);
+                setMode(0); setIsOneWay(true)
               }}
             >
               One-way
@@ -147,7 +151,7 @@ const Flights = () => {
               style={{ color: mode === 1 ? Colors.blackText : Colors.subText }}
               onPress={() => {
                 Z.value = withSpring(117, { damping: 20, stiffness: 500 });
-                setMode(1);
+                setMode(1);  setIsOneWay(false)
               }}
             >
               Round trip
@@ -156,7 +160,7 @@ const Flights = () => {
               style={{ color: mode === 2 ? Colors.blackText : Colors.subText }}
               onPress={() => {
                 Z.value = withSpring(235, { damping: 20, stiffness: 500 });
-                setMode(2);
+                setMode(2); 
               }}
             >
               Multi-city

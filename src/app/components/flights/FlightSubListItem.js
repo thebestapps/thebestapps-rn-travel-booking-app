@@ -27,18 +27,23 @@ const FlightSubListItem = ({ item, index, onPress }) => {
   // console.log(totalHours, totalMins);
   const navigation = useNavigation();
 
-  const {firstTrip, setFirstTrip, secondTrip, setSecondTrip} = useContext(AppContext);
+  const {firstTrip, setFirstTrip, secondTrip, setSecondTrip, isOneWay} = useContext(AppContext);
 
   const setSelect = (d1, d2) =>{
     if(!firstTrip)
     {
       setFirstTrip(d1 + " " + d2);
+      console.log("is one way is---------->", isOneWay);
+      if(isOneWay) {
+        navigation.navigate('Checkout')
+      }
     } else {
       setSecondTrip(d1 + " " + d2);
-    }
-    if(firstTrip && secondTrip){
       navigation.navigate('Checkout')
     }
+   // if(firstTrip && secondTrip){
+   //   navigation.navigate('Checkout')
+    //}
   }
 
 
@@ -92,6 +97,56 @@ const FlightSubListItem = ({ item, index, onPress }) => {
             
             <Text style={style.airline__places}>{item.boarding_point}</Text>
             <Text style={style.airline__time}>Main Cabin</Text>
+            <View style={{flexDirection:'row'}}>
+            <Image
+            source={Images.b1}
+            style={{
+              width: 30,
+              height: 20,
+              alignSelf: "center",
+            }}
+          />
+          <Image
+            source={Images.b2}
+            style={{
+              width: 30,
+              height: 20,
+              alignSelf: "center",
+            }}
+          />
+          <Image
+            source={Images.b3}
+            style={{
+              width: 30,
+              height: 20,
+              alignSelf: "center",
+            }}
+          />
+          <Image
+            source={Images.b4}
+            style={{
+              width: 20,
+              height:30,
+              alignSelf: "center",
+            }}
+          />
+          <Image
+            source={Images.b5}
+            style={{
+              width: 20,
+              height:30,
+              alignSelf: "center",
+            }}
+          />
+          <Image
+            source={Images.b6}
+            style={{
+              width: 20,
+              height:30,
+              alignSelf: "center",
+            }}
+          />
+            </View>
           </View>
         </View>
         <View

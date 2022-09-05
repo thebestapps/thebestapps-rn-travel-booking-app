@@ -1,7 +1,7 @@
 // FontFamily & FontWeight
 
 export const FontFamily = {
-  fontFamily_regular: "Roboto",
+  //fontFamily_regular: "Roboto",
 };
 
 export const FontWeight = {

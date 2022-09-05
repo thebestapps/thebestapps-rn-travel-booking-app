@@ -12,9 +12,6 @@ import { Images } from "../../../constants/images";
 
 import styles from "../../../global";
 import { Colors } from "../../../theme/Colors";
-import { FontFamily, FontWeight } from "../../../theme/FontFamily";
-import { FontSizes } from "../../../theme/FontSize";
-import { flightList } from "../../../constants/texts";
 import {
   flightListData,
   flightListFilter,
@@ -22,39 +19,23 @@ import {
 import dayjs from "dayjs";
 import FlightListActionBar from "../../components/actionBar/FlightListActionBar";
 import ChipList from "../../components/chip-lists/ChipList";
-import FlightListItem from "../../components/flights/FlightListItem";
 
 import AppContext from "../../context/AppContext";
 
-const FlightListPage = ({ navigation }) => {
+const CheckoutPage = ({ navigation }) => {
 
-const {firstTrip, secondTrip, isOneWay} = useContext(AppContext)
+const {firstTrip, secondTrip} = useContext(AppContext)
 
   const dispatch = useDispatch();
 
   return (
     <View style={style.main__container}>
-      <FlightListActionBar
-        navigation={navigation}
-        source={"JKF"}
-        destination={"BOS"}
-        avgPrice={"297"}
-        selectedDate={Date.now()}
-      />
-      <ChipList chipListData={flightListFilter} />
+     
+      <Text style={{fontSize: 35}}>Checkout</Text>
+      <Text>First Trip Selected: {firstTrip}</Text>
+      <Text>Second Trip Selected: {secondTrip}</Text>
       <View>
-        <View>
-          <FlatList
-            data={flightListData}
-            style={{ paddingTop: 20, paddingBottom: 30 }}
-            renderItem={({ item, index }) => {
-              return <FlightListItem item={item} index={index} />;
-            }}
-            ItemSeparatorComponent={(_, index) => {
-              return <View style={style.flight__divider} />;
-            }}
-          />
-        </View>
+        
       </View>
     </View>
   );
@@ -71,4 +52,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default FlightListPage;
+export default CheckoutPage;

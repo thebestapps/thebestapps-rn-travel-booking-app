@@ -17,6 +17,7 @@ import SavedTab from "../views/destinationPage/savedTab/SavedTab";
 import DestinationTab from "../views/destinationPage/destinationsTab/DestinationTab";
 import NavDrawer from "../views/navDrawerPage/NavDrawer";
 import FlightListPage from "../views/flightPage/FlightListPage";
+import CheckoutPage from "../views/checkoutPage/CheckoutPage";
 import ProfileEdit from "../views/profile/ProfileEdit";
 
 import AppContext from "../context/AppContext";
@@ -88,6 +89,11 @@ const PrivateStack = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name="Checkout"
+        component={CheckoutPage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="Profile Edit"
         component={ProfileEdit}
         options={{
@@ -128,8 +134,9 @@ const RootNavigation = () => {
 
   const [ firstTrip, setFirstTrip] = useState('')
   const [ secondTrip, setSecondTrip] = useState('')
+  const [ isOneWay, setIsOneWay] = useState(false)
 
-  const value = useMemo(() => ({ firstTrip, setFirstTrip, secondTrip, setSecondTrip }), [firstTrip, secondTrip]);
+  const value = useMemo(() => ({ firstTrip, setFirstTrip, secondTrip, setSecondTrip, isOneWay, setIsOneWay }), [firstTrip, secondTrip, isOneWay]);
 
 
   return (
