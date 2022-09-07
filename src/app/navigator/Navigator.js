@@ -17,6 +17,8 @@ import SavedTab from "../views/destinationPage/savedTab/SavedTab";
 import DestinationTab from "../views/destinationPage/destinationsTab/DestinationTab";
 import NavDrawer from "../views/navDrawerPage/NavDrawer";
 import FlightListPage from "../views/flightPage/FlightListPage";
+import FlightListReturnPage from "../views/flightPage/FlightListReturnPage";
+
 import CheckoutPage from "../views/checkoutPage/CheckoutPage";
 import ProfileEdit from "../views/profile/ProfileEdit";
 
@@ -86,6 +88,11 @@ const PrivateStack = () => {
       <Stack.Screen
         name="FlightList"
         component={FlightListPage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="FlightListReturn"
+        component={FlightListReturnPage}
         options={{ headerShown: false }}
       />
       <Stack.Screen

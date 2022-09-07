@@ -30,20 +30,21 @@ const FlightSubListItem = ({ item, index, onPress }) => {
   const {firstTrip, setFirstTrip, secondTrip, setSecondTrip, isOneWay} = useContext(AppContext);
 
   const setSelect = (d1, d2) =>{
-    if(!firstTrip)
-    {
-      setFirstTrip(d1 + " " + d2);
-      console.log("is one way is---------->", isOneWay);
-      if(isOneWay) {
+
+    if(isOneWay){
+      if(!firstTrip){
+        setFirstTrip(d1 + " " + d2);
+        navigation.navigate('Checkout')
+      } 
+    } else {
+      if(!firstTrip){
+        setFirstTrip(d1 + " " + d2);
+        navigation.navigate('FlightListReturn')
+      } else {
+        setSecondTrip(d1 + " " + d2);
         navigation.navigate('Checkout')
       }
-    } else {
-      setSecondTrip(d1 + " " + d2);
-      navigation.navigate('Checkout')
     }
-   // if(firstTrip && secondTrip){
-   //   navigation.navigate('Checkout')
-    //}
   }
 
 

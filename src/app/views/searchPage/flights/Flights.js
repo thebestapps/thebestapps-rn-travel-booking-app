@@ -69,9 +69,11 @@ const Flights = () => {
   const Z = useSharedValue(117);
   const [showLoader, setShowLoader] = useState(false);
 
-  const {setIsOneWay} = useContext(AppContext);
+  const {setIsOneWay, setFirstTrip, setSecondTrip} = useContext(AppContext);
 
   useEffect(() => {
+    setFirstTrip("");
+    setSecondTrip("");
     async function fetchData() {
       try {
         var info = await EncryptedStorage.getItem("employee_info");
