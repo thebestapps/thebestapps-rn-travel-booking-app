@@ -45,8 +45,11 @@ const NavDrawer = ({ navigation }) => {
       console.log("Profile Image Set ====>", profileImage);
     });
   };
-  const onClickHandler = () => {
+  const onClickProfileHandler = () => {
     navigation.navigate("Profile Edit");
+  };
+  const onClickPaymentHandler = () => {
+    navigation.navigate("Payment Method");
   };
   return (
     <View style={style.drawer}>
@@ -103,7 +106,7 @@ const NavDrawer = ({ navigation }) => {
           <Text style={{fontSize: 14, opacity: 0.6}}>calvin@example.com</Text>
         </View>
         <View style={{paddingLeft: 7, paddingRight: 15, marginTop: "15%"}}>
-          <TouchableOpacity onPress={onClickHandler}>
+          <TouchableOpacity onPress={onClickProfileHandler}>
             <View style={style.screenTab}>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <MaterialIcons name="person-outline" size={27} color="black" />
@@ -129,7 +132,7 @@ const NavDrawer = ({ navigation }) => {
             </View>
           </TouchableOpacity>
           <View style={style.divider}/>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onClickPaymentHandler}>
             <View style={style.screenTab}>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <Image

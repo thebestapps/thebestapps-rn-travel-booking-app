@@ -18,7 +18,7 @@ import DestinationTab from "../views/destinationPage/destinationsTab/Destination
 import NavDrawer from "../views/navDrawerPage/NavDrawer";
 import FlightListPage from "../views/flightPage/FlightListPage";
 import FlightListReturnPage from "../views/flightPage/FlightListReturnPage";
-
+import PaymentMethod from "../views/paymentMethod/paymentMethod";
 import CheckoutPage from "../views/checkoutPage/CheckoutPage";
 import ProfileEdit from "../views/profile/ProfileEdit";
 
@@ -107,6 +107,11 @@ const PrivateStack = () => {
           headerShown: true,
           title: 'Personal Info'
         }}
+      />
+      <Stack.Screen
+        name="Payment Method"
+        component={PaymentMethod}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
