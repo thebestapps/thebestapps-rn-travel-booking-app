@@ -21,7 +21,7 @@ import FlightListReturnPage from "../views/flightPage/FlightListReturnPage";
 
 import CheckoutPage from "../views/checkoutPage/CheckoutPage";
 import ProfileEdit from "../views/profile/ProfileEdit";
-
+import CheckoutPageInfoPage from "../views/checkoutPage/CheckoutPageInfoPage";
 import AppContext from "../context/AppContext";
 
 const Stack = createNativeStackNavigator();
@@ -56,6 +56,7 @@ const Tabs = ({ navigation }) => {
           component={SavedTab}
           options={{ tabBarLabel: "Saved" }}
         />
+        
       </Tab.Navigator>
     </>
   );
@@ -100,6 +101,14 @@ const PrivateStack = () => {
         component={CheckoutPage}
         options={{ headerShown: false }}
       />
+
+  <Stack.Screen
+        name="CheckoutPageInfoPage"
+        component={CheckoutPageInfoPage}
+        options={{ headerShown: false }}
+      />
+      
+
       <Stack.Screen
         name="Profile Edit"
         component={ProfileEdit}
