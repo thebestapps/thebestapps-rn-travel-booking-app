@@ -10,8 +10,8 @@ import {
   TextInput,
 } from "react-native";
 import { Colors } from "../../../theme/Colors";
+
 import Modal from "react-native-modal";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 const CheckoutPage = ({ navigation }) => {
   const [isTripinfo, setisTripinfo] = useState(true);
   const [Tripname, SetTripname] = useState("Boston Trip");
@@ -20,6 +20,8 @@ const CheckoutPage = ({ navigation }) => {
   const [isflight, setFlight] = useState(false);
   const [isSummary, setSummary] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
+
+
   const CheckoutItemTitle = ({ index, title, isActive }) => {
     return (
       <View style={isActive ? { opacity: 1 } : { opacity: 0.3 }}>
@@ -55,13 +57,16 @@ const CheckoutPage = ({ navigation }) => {
           padding: 0,
         }}
       >
-        <Pressable style={{ flex: 1 }} onPress={toggleModal}></Pressable>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={toggleModal}
+        ></TouchableOpacity>
         <View
           style={{
             flex: 1,
             backgroundColor: "rgba(256,256,256,1)",
             margin: 0,
-            padding: 10,
+            padding: 20,
             borderTopEndRadius: 20,
             borderTopStartRadius: 20,
           }}
@@ -220,15 +225,18 @@ const CheckoutPage = ({ navigation }) => {
                     Fri, JUl29- Wed, Aug 3
                   </Text>
                 </View>
-                <TouchableOpacity  onPress={toggleModal}>
-                <Image
-                  style={{width:30, height:30}}
-                  source={require("../../../assets/icon/add.png")}
-                />
+                <TouchableOpacity onPress={toggleModal}>
+                  <Image
+                    style={{ width: 30, height: 30 }}
+                    source={require("../../../assets/icon/add.png")}
+                  />
                 </TouchableOpacity>
               </View>
-              <Button title="Add Trip" onPress={()=>
-                  navigation.navigate("CheckoutPageInfoPage")} />
+              <TouchableOpacity
+              style={{backgroundColor:Colors.blueColor, borderRadius:10, padding:15, alignItems:'center'}}
+                onPress={() => navigation.navigate("CheckoutPageInfoPage")}>
+              <Text style={{color:Colors.whiteColor, fontWeight:'bold'}}>Add Trip</Text>
+              </TouchableOpacity>
             </View>
           ) : (
             <></>
@@ -287,13 +295,7 @@ const CheckoutPage = ({ navigation }) => {
 
 const style = StyleSheet.create({
   main__container: { backgroundColor: Colors.whiteColor, flex: 1, padding: 10 },
-  flight__divider: {
-    borderWidth: 1,
-    borderColor: Colors.blackColor,
-    opacity: 0.1,
-    width: "100%",
-    marginVertical: 15,
-  },
+
   header: {
     flexDirection: "row",
     justifyContent: "center",
