@@ -23,6 +23,8 @@ import CheckoutPage from "../views/checkoutPage/CheckoutPage";
 import ProfileEdit from "../views/profile/ProfileEdit";
 import CheckoutPageInfoPage from "../views/checkoutPage/CheckoutPageInfoPage";
 import AppContext from "../context/AppContext";
+import CheckuoutFlightDetails from "../views/checkoutPage/CheckuoutFlightDetails";
+import CheckoutPassengerInfo from "../views/checkoutPage/CheckoutPassengerInfo";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -108,6 +110,17 @@ const PrivateStack = () => {
         options={{ headerShown: false }}
       />
       
+      <Stack.Screen
+        name="CheckuoutFlightDetails"
+        component={CheckuoutFlightDetails}
+        options={{ headerShown: false }}
+      />
+
+<Stack.Screen
+        name="CheckoutPassengerInfo"
+        component={CheckoutPassengerInfo}
+        options={{ headerShown: false }}
+      />
 
       <Stack.Screen
         name="Profile Edit"

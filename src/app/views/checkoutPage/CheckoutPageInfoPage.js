@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Colors } from "../../../theme/Colors";
 import Modal from "react-native-modal";
+import { FontFamily, FontWeight } from "../../../theme/FontFamily";
 
 export default function CheckoutPageInfoPage({ navigation }) {
   const [isBillableModalVisible, setBillableModalVisible] = useState(false);
@@ -22,8 +23,8 @@ export default function CheckoutPageInfoPage({ navigation }) {
   const [isbillabe, setisbillable] = useState("");
   const [isRate, setisRate] = useState("");
 
- 
-  function toggleBillableModal(e){
+
+  function toggleBillableModal(e) {
     setisbillable(e);
     setBillableModalVisible(!isBillableModalVisible);
   };
@@ -36,6 +37,7 @@ export default function CheckoutPageInfoPage({ navigation }) {
 
   return (
     <View style={style.main__container}>
+
       <Modal
         isVisible={isBillableModalVisible}
         style={{
@@ -48,87 +50,86 @@ export default function CheckoutPageInfoPage({ navigation }) {
       >
         <TouchableOpacity
           style={{ flex: 1, backgroundColor: "transparent" }}
-          onPress={()=>toggleBillableModal(isRate)}
+          onPress={() => toggleBillableModal(isRate)}
         ></TouchableOpacity>
         <View
           style={{
-            flex: 1,
+
             backgroundColor: "rgba(256,256,256,1)",
             margin: 0,
-            padding: 20,
+            paddingHorizontal: 20,
+            paddingVertical: 40,
             borderTopEndRadius: 20,
             borderTopStartRadius: 20,
           }}
         >
           <View style={{ flexDirection: "row" }}>
             <Text
+             onPress={() => toggleBillableModal(isbillabe)}
               style={{
                 flexDirection: "row",
-                color: Colors.blueColor,
-                fontWeight: "bold",
-                fontSize: 16,
+                color: '#006EE6',
+                fontWeight:FontWeight.fontWeight_500,
+                flex: 1,
+                fontSize: 20,
               }}
             >
               Cancel
             </Text>
+
             <Text
-              style={{
-                flex: 1,
-                fontSize: 18,
-                color: Colors.blackText,
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              Is it Billable
-            </Text>
-            <Text
-              onPress={()=>toggleBillableModal(isRate)}
+              onPress={() => toggleBillableModal(isbillabe)}
               style={{
                 flexDirection: "row",
-                color: Colors.blueColor,
-                fontWeight: "bold",
-                fontSize: 16,
+                color: '#006EE6',
+                fontWeight:FontWeight.fontWeight_500,
+                fontSize: 24,
               }}
             >
-              Done
+              +
             </Text>
           </View>
 
           <View style={{ marginVertical: 30 }}>
             <TouchableOpacity
               style={{
-                backgroundColor: Colors.blueColor,
                 borderRadius: 10,
                 padding: 15,
                 alignItems: "center",
-                marginVertical: 20,
+                flexDirection: 'row',
+
               }}
-              onPress={()=>toggleBillableModal("Yes")}
+              onPress={() => toggleBillableModal("NO")}
             >
-              <Text style={{ color: Colors.whiteColor, fontWeight: "bold" }}>
+              <View style={isbillabe == "NO" ? { padding: 10, borderWidth: 2, borderColor: "#ccc", backgroundColor: '#006EE6', borderRadius: 10, marginRight: 10, } : { padding: 10, borderWidth: 2, borderColor: "#ccc", borderRadius: 10, marginRight: 10, }}></View>
+              <Text style={{ color: Colors.blackColor, fontSize: 20 }}>
+                NO
+              </Text>
+            </TouchableOpacity>
+
+            <View style={{ backgroundColor: "#eee", padding: 1 }}></View>
+
+            <TouchableOpacity
+              style={{
+                borderRadius: 10,
+                padding: 15,
+                alignItems: "center",
+                flexDirection: 'row',
+
+              }}
+              onPress={() => toggleBillableModal("YES")}
+            >
+              <View style={isbillabe == "YES" ? { padding: 10, borderWidth: 2, borderColor: "#ccc", backgroundColor: '#006EE6', borderRadius: 10, marginRight: 10, } : { padding: 10, borderWidth: 2, borderColor: "#ccc", borderRadius: 10, marginRight: 10, }}></View>
+              <Text style={{ color: Colors.blackColor, fontSize: 20 }}>
                 YES
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={{
-                backgroundColor: Colors.greyColor,
-                borderRadius: 10,
-                padding: 15,
-                alignItems: "center",
-              }}
-              onPress={()=> toggleBillableModal("No")}
-            >
-              <Text style={{ color: Colors.blackColor, fontWeight: "bold" }}>
-                NO
-              </Text>
-            </TouchableOpacity>
           </View>
-          <View style={{flex:1,alignItems:'flex-start', marginVertical:30}}>
-          
+          <View style={{ flex: 1, alignItems: 'flex-start', marginVertical: 30 }}>
+
           </View>
-          
+
         </View>
       </Modal>
 
@@ -144,217 +145,173 @@ export default function CheckoutPageInfoPage({ navigation }) {
       >
         <TouchableOpacity
           style={{ flex: 1 }}
-          onPress={()=> toggleSpecialRateModal(isRate)}
+          onPress={() => toggleSpecialRateModal(isRate)}
         ></TouchableOpacity>
         <View
           style={{
-            flex: 1,
+
             backgroundColor: "rgba(256,256,256,1)",
             margin: 0,
-            padding: 20,
-            borderTopEndRadius: 20,
-            borderTopStartRadius: 20,
+            paddingHorizontal: 20,
+            paddingVertical: 40,
+            borderTopEndRadius: 10,
+            borderTopStartRadius: 10,
           }}
         >
           <View style={{ flexDirection: "row" }}>
             <Text
+             onPress={() => toggleSpecialRateModal(isRate)}
               style={{
+                
                 flexDirection: "row",
-                color: Colors.blueColor,
-                fontWeight: "bold",
-                fontSize: 16,
+                color: '#006EE6',
+                fontWeight:FontWeight.fontWeight_500,
+                fontSize: 20,
+                flex: 1
               }}
             >
               Cancel
             </Text>
+
             <Text
-              style={{
-                flex: 1,
-                fontSize: 18,
-                color: Colors.blackText,
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              Enter Special rate code
-            </Text>
-            <Text
-              onPress={()=> toggleSpecialRateModal(isRate)}
+              onPress={() => toggleSpecialRateModal(isRate)}
               style={{
                 flexDirection: "row",
-                color: Colors.blueColor,
-                fontWeight: "bold",
-                fontSize: 16,
+                color: '#006EE6',
+                color: '#006EE6',
+                fontSize: 22,
               }}
             >
-              Done
+              +
             </Text>
           </View>
 
           <View style={{ marginVertical: 30 }}>
+
+
             <TouchableOpacity
               style={{
-                backgroundColor: Colors.greyColor,
                 borderRadius: 10,
                 padding: 15,
                 alignItems: "center",
+                flexDirection: 'row',
+
               }}
-              onPress={()=> toggleSpecialRateModal("IT")}
+              onPress={() => toggleSpecialRateModal("IT")}
             >
-              <Text style={{ color: Colors.blackColor, fontWeight: "bold" }}>
+              <View style={isRate == "IT" ? { padding: 10, borderWidth: 2, borderColor: "#ccc", backgroundColor: '#006EE6', borderRadius: 10, marginRight: 10, } : { padding: 10, borderWidth: 2, borderColor: "#ccc", borderRadius: 10, marginRight: 10, }}></View>
+              <Text style={{ color: Colors.blackColor, fontSize: 20 }}>
                 IT
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={{
-                backgroundColor: Colors.greyColor,
-                borderRadius: 10,
-                marginVertical: 20,
-                padding: 15,
-                alignItems: "center",
-              }}
-              onPress={()=> toggleSpecialRateModal("Accounting")}
-            >
-              <Text style={{ color: Colors.blackColor, fontWeight: "bold" }}>
-                Accounting
-              </Text>
-            </TouchableOpacity>
+
+            <View style={{ backgroundColor: "#eee", padding: 1 }}></View>
+
 
             <TouchableOpacity
               style={{
-                backgroundColor: Colors.greyColor,
                 borderRadius: 10,
                 padding: 15,
                 alignItems: "center",
+                flexDirection: 'row',
+
               }}
-              onPress={()=> toggleSpecialRateModal("Production")}
+              onPress={() => toggleSpecialRateModal("ACCOUNTING")}
             >
-              <Text style={{ color: Colors.blackColor, fontWeight: "bold" }}>
-                Production
+              <View style={isRate == "ACCOUNTING" ? { padding: 10, borderWidth: 2, borderColor: "#ccc", backgroundColor: '#006EE6', borderRadius: 10, marginRight: 10, } : { padding: 10, borderWidth: 2, borderColor: "#ccc", borderRadius: 10, marginRight: 10, }}></View>
+              <Text style={{ color: Colors.blackColor, fontSize: 20 }}>
+                ACCOUNTING
               </Text>
             </TouchableOpacity>
+
+            <View style={{ backgroundColor: "#eee", padding: 1 }}></View>
+
+            <TouchableOpacity
+              style={{
+                borderRadius: 10,
+                padding: 15,
+                alignItems: "center",
+                flexDirection: 'row',
+
+              }}
+              onPress={() => toggleSpecialRateModal("PRODUCTION")}
+            >
+              <View style={isRate == "PRODUCTION" ? { padding: 10, borderWidth: 2, borderColor: "#ccc", backgroundColor: '#006EE6', borderRadius: 10, marginRight: 10, } : { padding: 10, borderWidth: 2, borderColor: "#ccc", borderRadius: 10, marginRight: 10, }}></View>
+              <Text style={{ color: Colors.blackColor, fontSize: 20 }}>
+                PRODUCTION
+              </Text>
+            </TouchableOpacity>
+
+
           </View>
         </View>
       </Modal>
 
-      <ScrollView>
-    
-      <ImageBackground
-        style={{ width: "100%", height: 240, position: "relative" }}
-        source={require("../../../assets/icon/TripBackground.png")}
-      >
-        <View style={{ backgroundColor: "rgba(0,0,0,0.5)", flex: 1 }}></View>
-        <Text
-          style={{
-            fontSize: 36,
-            color: "#fff",
-            position: "absolute",
-            bottom: 20,
-            left: 20,
-            fontWeight: "bold",
-          }}
+      <ScrollView showsVerticalScrollIndicator={false}>
+
+        <ImageBackground
+          style={{ width: "100%", height: 240, position: "relative" }}
+          source={require("../../../assets/icon/TripBackground.png")}
         >
-          Boston Trip
-        </Text>
+          <View style={{ backgroundColor: "rgba(0,0,0,0.5)", flex: 1 }}></View>
+          <Text
+            style={{
+              fontSize: 36,
+              color: "#fff",
+              position: "absolute",
+              bottom: 20,
+              left: 20,
+              fontWeight:FontWeight.fontWeight_500,
+            }}
+          >
+            Boston Trip
+          </Text>
 
-        <Text
-          style={{
-            fontSize: 18,
-            backgroundColor: "rgba(0,0,0,0.6)",
-            paddingHorizontal: 20,
-            paddingVertical: 10,
-            borderRadius: 40,
-            color: "#fff",
-            position: "absolute",
-            top: 20,
-            right: 20,
-            fontWeight: "bold",
-          }}
-        >
-          Rename
-        </Text>
-      </ImageBackground>
+          <Text
+            style={{
+              fontSize: 18,
 
-      <View style={style.header}>
-        <Image
-          style={style.header_backBtnImage}
-          source={require("../../../assets/icon/getHelp.png")}
-        />
-        <Text style={style.headerTitle}>
-          Add Details to help your company identify and track expenses.
-        </Text>
-        <TouchableOpacity
-          style={style.header_backBtn}
-          onPress={() => navigation.goBack()}
-        ></TouchableOpacity>
-      </View>
+              borderRadius: 40,
+              color: "#fff",
+              position: "absolute",
+              top: 20,
+              right: 20,
+              fontWeight:FontWeight.fontWeight_500,
+            }}
+          >
+            Rename
+          </Text>
+        </ImageBackground>
 
-      <View style={{ margin: 20 }}>
-        <View
-          style={{
-            flexDirection: "row",
+        <View style={style.header}>
+          <View style={{
+
+            backgroundColor: "transparent",
             justifyContent: "center",
             alignItems: "center",
-            marginVertical: 10,
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 14, color: "#aaa" }}>Purpose</Text>
-
-            {editpurpose ? (
-              <View style={{flexDirection:'row', alignItems:'center'}}>
-                <TextInput
-                  value={purposeText} 
-                  placeholderTextColor="#aaa"
-                  onChangeText={e => setPurposeText(e)}
-                  style={{
-                    flex: 1,
-                    borderWidth: 2,
-                    fontSize: 18,
-                    marginVertical: 10,
-                    borderColor:Colors.blueColor,
-                    paddingHorizontal: 10,
-                    paddingVertical:5,
-                    borderRadius:10,
-                    color: "#111",
-                  }}
-                />
-                <TouchableOpacity
-                  style={{ width: 30 }}
-                  onPress={() => setEditpurpose(false)}
-                >
-                  <Image
-                     style={{width:30, height:30}}
-                    source={require("../../../assets/icon/policy.png")}
-                  />
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <View style={{flexDirection:'row', alignItems:'center'}}>
-                <Text
-                  style={{ flex:1, fontSize: 18, color: "#111", fontWeight: "bold" }}
-                >
-                  {purposeText}
-                </Text>
-                <TouchableOpacity
-                  style={{ width: 30 }}
-                  onPress={() => setEditpurpose(true)}
-                >
-                  <Image
-                     style={{width:30, height:30}}
-                    source={require("../../../assets/icon/resource.png")}
-                  />
-                </TouchableOpacity>
-              </View>
-            )}
-
+            width: 24,
+            borderRadius: 12,
+            marginRight: 20,
+            borderWidth: 2,
+            height: 24,
+            borderColor: '#aaa'
+          }}>
+            <Text style={{ fontSize: 15, color: '#aaa', fontWeight:FontWeight.fontWeight_500 }}>
+              i
+            </Text>
           </View>
+          <Text style={style.headerTitle}>
+            Add Details to help your company identify and track expenses.
+          </Text>
+          <TouchableOpacity
+            style={style.header_backBtn}
+            onPress={() => navigation.goBack()}
+          ></TouchableOpacity>
         </View>
 
-
-        { isbillabe=="" ? (
-            <View
+        <View style={{ margin: 20 }}>
+          <View
             style={{
               flexDirection: "row",
               justifyContent: "center",
@@ -362,219 +319,272 @@ export default function CheckoutPageInfoPage({ navigation }) {
               marginVertical: 10,
             }}
           >
-            <Text
+            <View style={{ flex: 1 }}>
+              <Text style={{ fontSize: 14, color: "#aaa" }}>Purpose</Text>
+
+              {editpurpose ? (
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <TextInput
+                    autoFocus={true}
+                    value={purposeText}
+                    placeholderTextColor="#aaa"
+                    onChangeText={e => setPurposeText(e)}
+                    style={{
+                      flex: 1,
+                      margin: 0,
+                      padding: 0,
+                      fontSize: 18,
+                      color: "#111",
+                    }}
+                  />
+
+
+
+                  <TouchableOpacity onPress={() => setEditpurpose(false)}>
+                    <Text style={{ fontWeight:FontWeight.fontWeight_500, fontSize: 22, color: '#006EE6' }}>✓</Text>
+                  </TouchableOpacity>
+
+
+                </View>
+              ) : (
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text
+                    style={{ flex: 1, fontSize: 18, color: "#111", fontWeight:FontWeight.fontWeight_500 }}
+                  >
+                    {purposeText}
+                  </Text>
+                  <TouchableOpacity
+                    style={{ width: 30 }}
+                    onPress={() => setEditpurpose(true)}
+                  >
+                    <Image
+                      style={{ width: 30, height: 30 }}
+                      source={require("../../../assets/icon/edit.png")}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )}
+
+            </View>
+          </View>
+
+
+          {isbillabe == "" ? (
+            <View
               style={{
-                fontSize: 18,
-                color: Colors.blueColor,
-                fontWeight: "bold",
-                flex: 1,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                marginVertical: 10,
               }}
             >
-              Is it Billable
-            </Text>
-  
-            <TouchableOpacity
-              style={{width:30, height:30}}
-              onPress={()=>toggleBillableModal("")}
-            >
-              <Image
-                style={{ width: 30, height: 30 }}
-                source={require("../../../assets/icon/add.png")}
-              />
-            </TouchableOpacity>
-          </View>
-        ) :
-        
-        (
-          <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            marginVertical: 10,
-          }}
-        >
-          <View style={{flex:1}}>
-          <Text
-            style={{
-              fontSize: 18,
-              color: Colors.blackColor,
-              fontWeight: "bold",
-            }}
-          >
-            Is it Billable
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              color: Colors.greyColor,
-              fontWeight: "bold",
-            }}
-          >
-            {isbillabe}
-          </Text>
-          </View>
-          <TouchableOpacity
-            style={{width:30, height:30}}
-            onPress={()=> toggleBillableModal(isRate)}
-          >
-            <Image
-              style={{ width: 30, height: 30 }}
-              source={require("../../../assets/icon/resource.png")}
-            />
-          </TouchableOpacity>
-        </View>
-        ) 
-        }
-       
+              <Text
+                style={{
+                  fontSize: 18,
+                  color: '#006EE6',
+                  fontWeight:FontWeight.fontWeight_500,
+                  flex: 1,
+                }}
+              >
+                Is it Billable
+              </Text>
 
 
+              <TouchableOpacity onPress={() => toggleBillableModal(isbillabe)}>
+                <Text style={{ fontWeight:FontWeight.fontWeight_500, fontSize: 22, color: '#006EE6' }}>+</Text>
+              </TouchableOpacity>
+            </View>
+          ) :
+
+            (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginVertical: 10,
+                }}
+              >
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{
+
+                      fontSize: 14,
+                      color: Colors.greyColor,
+                      fontWeight:FontWeight.fontWeight_500,
 
 
-        {isRate=="" ?
-
-        (
-          <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            marginVertical: 10,
-          }}
-        >
-          
-          <Text
-            style={{
-              fontSize: 18,
-              color: Colors.blueColor,
-              fontWeight: "bold",
-              flex: 1,
-            }}
-          >
-            Enter Special rate code
-          </Text>
-
-          <TouchableOpacity
-            style={{width:30, height:30}}
-            onPress={()=> toggleSpecialRateModal(isRate)}
-          >
-            <Image
-              style={{ width: 30, height: 30 }}
-              source={require("../../../assets/icon/add.png")}
-            />
-          </TouchableOpacity>
-        </View>
-        ) :
-        (
-
-          <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            marginVertical: 10,
-          }}
-        >
-         <View style={{flex:1}}>
-          <Text
-            style={{
-              fontSize: 18,
-              color: Colors.blackColor,
-              fontWeight: "bold",
-            }}
-          >
-            Enter Special rate code
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              color: Colors.greyColor,
-              fontWeight: "bold",
-            }}
-          >
-            {isRate}
-          </Text>
-          </View>
-
-          <TouchableOpacity
-            style={{width:30, height:30}}
-            onPress={()=> toggleSpecialRateModal(isRate)}
-          >
-            <Image
-              style={{ width: 30, height: 30 }}
-              source={require("../../../assets/icon/resource.png")}
-            />
-          </TouchableOpacity>
-        </View>
-        )
-
-        }
-
-
-
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            marginVertical: 10,
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 14, color: "#aaa" }}>Purpose</Text>
-
-            {editProject ? (
-              <View style={{flexDirection:'row', alignItems:'center'}}>
-                <TextInput
-                  value={ProjectText} 
-                  placeholderTextColor="#aaa"
-                  onChangeText={e => setProjectText(e)}
-                  style={{
-                    flex: 1,
-                    borderWidth: 2,
-                    fontSize: 18,
-                    marginVertical: 10,
-                    borderColor:Colors.blueColor,
-                    paddingHorizontal: 10,
-                    paddingVertical:5,
-                    borderRadius:10,
-                    color: "#111",
-                  }}
-                />
+                    }}
+                  >
+                    Is it Billable
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      color: Colors.blackColor,
+                      fontWeight:FontWeight.fontWeight_500,
+                    }}
+                  >
+                    {isbillabe}
+                  </Text>
+                </View>
                 <TouchableOpacity
-                  style={{ width: 30 }}
-                  onPress={() => setEditProject(false)}
+                  style={{ width: 30, height: 30 }}
+                  onPress={() => toggleBillableModal(isbillabe)}
                 >
                   <Image
-                     style={{width:30, height:30}}
-                    source={require("../../../assets/icon/policy.png")}
+                    style={{ width: 30, height: 30 }}
+                    source={require("../../../assets/icon/edit.png")}
                   />
                 </TouchableOpacity>
               </View>
-            ) : (
-              <View style={{flexDirection:'row', alignItems:'center'}}>
+            )
+          }
+
+
+
+
+
+          {isRate == "" ?
+
+            (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginVertical: 10,
+                }}
+              >
+
                 <Text
-                  style={{ flex:1, fontSize: 18, color: "#111", fontWeight: "bold" }}
+                  style={{
+                    fontSize: 18,
+                    color: '#006EE6',
+                    fontWeight:FontWeight.fontWeight_500,
+                    flex: 1,
+                  }}
                 >
-                  {ProjectText}
+                  Enter Special rate code
                 </Text>
+
+                <TouchableOpacity onPress={() => toggleSpecialRateModal(isRate)}>
+                  <Text style={{ fontWeight:FontWeight.fontWeight_500, fontSize: 22, color: '#006EE6' }}>+</Text>
+                </TouchableOpacity>
+
+              </View>
+            ) :
+            (
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginVertical: 10,
+                }}
+              >
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: Colors.greyColor,
+                      fontWeight:FontWeight.fontWeight_500,
+                    }}
+                  >
+                    Enter Special rate code
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      color: Colors.blackColor,
+                      fontWeight:FontWeight.fontWeight_500,
+
+                    }}
+                  >
+                    {isRate}
+                  </Text>
+                </View>
+
                 <TouchableOpacity
-                  style={{ width: 30 }}
-                  onPress={() => setEditProject(true)}
+                  style={{ width: 30, height: 30 }}
+                  onPress={() => toggleSpecialRateModal(isRate)}
                 >
                   <Image
-                     style={{width:30, height:30}}
-                    source={require("../../../assets/icon/resource.png")}
+                    style={{ width: 30, height: 30 }}
+                    source={require("../../../assets/icon/edit.png")}
                   />
                 </TouchableOpacity>
               </View>
-            )}
+            )
+
+          }
+
+
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginVertical: 10,
+            }}
+          >
+            <View style={{ flex: 1 }}>
+              <Text style={{ fontSize: 14, color: "#aaa" }}>Purpose</Text>
+
+              {editProject ? (
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <TextInput
+                    value={ProjectText}
+                    placeholderTextColor="#aaa"
+                    autoFocus={true}
+                    onChangeText={e => setProjectText(e)}
+                    style={{
+                      flex: 1,
+                      margin: 0,
+                      padding: 0,
+                      fontSize: 18,
+                      color: "#111",
+                    }}
+                  />
+
+
+                  <TouchableOpacity onPress={() => setEditProject(false)}>
+                    <Text style={{ fontWeight:FontWeight.fontWeight_500, fontSize: 22, color: '#006EE6' }}>✓</Text>
+                  </TouchableOpacity>
+
+
+                </View>
+              ) : (
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text
+                    style={{ flex: 1, fontSize: 18, color: "#111", fontWeight:FontWeight.fontWeight_500 }}
+                  >
+                    {ProjectText}
+                  </Text>
+                  <TouchableOpacity
+                    style={{ width: 30 }}
+                    onPress={() => setEditProject(true)}
+                  >
+                    <Image
+                      style={{ width: 30, height: 30 }}
+                      source={require("../../../assets/icon/edit.png")}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
           </View>
+
         </View>
-       
-      </View>
+
+
+
+      </ScrollView>
 
       <TouchableOpacity
+        onPress={() => navigation.navigate('CheckuoutFlightDetails')}
         style={{ alignItems: "center", justifyContent: "center" }}
       >
         <Text
@@ -585,7 +595,7 @@ export default function CheckoutPageInfoPage({ navigation }) {
             paddingHorizontal: 50,
             backgroundColor: "#111",
             color: "#fff",
-            fontWeight: "bold",
+            fontWeight:FontWeight.fontWeight_500,
             textTransform: "uppercase",
             fontSize: 18,
           }}
@@ -593,10 +603,6 @@ export default function CheckoutPageInfoPage({ navigation }) {
           Continue
         </Text>
       </TouchableOpacity>
-
-      </ScrollView>
-
-
     </View>
   );
 }

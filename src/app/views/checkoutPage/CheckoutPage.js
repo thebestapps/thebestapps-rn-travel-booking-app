@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -10,12 +10,19 @@ import {
   TextInput,
 } from "react-native";
 import { Colors } from "../../../theme/Colors";
+import { FontFamily, FontWeight } from "../../../theme/FontFamily";
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import AppContext from "../../context/AppContext";
 
 import Modal from "react-native-modal";
 const CheckoutPage = ({ navigation }) => {
+
+  const {firstTrip, secondTrip} = useContext(AppContext)
+
+
   const [isTripinfo, setisTripinfo] = useState(true);
   const [Tripname, SetTripname] = useState("Boston Trip");
-  const [TempTripname, SetTempTripname] = useState("Boston Trip");
+  const [TempTripname, SetTempTripname] = useState(Tripname);
   const [isPasssengerinfo, setisPasssengerinfo] = useState(false);
   const [isflight, setFlight] = useState(false);
   const [isSummary, setSummary] = useState(false);
@@ -24,26 +31,45 @@ const CheckoutPage = ({ navigation }) => {
 
   const CheckoutItemTitle = ({ index, title, isActive }) => {
     return (
-      <View style={isActive ? { opacity: 1 } : { opacity: 0.3 }}>
-        <View style={style.checkoutItemsTitle}>
-          <View style={style.checkoutItemsTitleIndex}>
-            <Text style={{ color: "#fff", fontSize: 14, fontWeight: "bold" }}>
+      <View style={isActive ? { } : { marginVertical:20  }}>
+        <View style={{
+          flexDirection: "row",
+          alignItems: "center",
+        }}>
+          <View style={
+            isActive ? { backgroundColor: "#000",
+            justifyContent: "center",
+            alignItems: "center",
+            width: 22,
+            borderRadius: 11,
+            marginRight: 5,
+            height: 22, } : { backgroundColor: "transparent",
+            justifyContent: "center",
+            alignItems: "center",
+            width: 24,
+            borderRadius: 12,
+            marginRight: 20,
+            height: 24, }}>
+            <Text style={isActive ? { fontSize:14, fontWeight:FontWeight.fontWeight_500, color:'#fff' } : { fontSize:16, color:'#aaa'  }}>
               {index}
             </Text>
           </View>
-          <Text style={style.checkoutItemsTitletext}>{title}</Text>
+          <Text style={
+          
+            isActive ? { fontSize: 24,
+              color: "#111",
+              fontWeight:FontWeight.fontWeight_500,
+              } : { fontSize: 16,
+                color: "#aaa",
+                }
+            }>{title}</Text>
         </View>
       </View>
     );
   };
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+ 
 
-  //   onChangeTripname = (text) => {
-  //     SetTempTripname(text)
-  //  }
 
   return (
     <View style={style.main__container}>
@@ -59,47 +85,50 @@ const CheckoutPage = ({ navigation }) => {
       >
         <TouchableOpacity
           style={{ flex: 1 }}
-          onPress={toggleModal}
+          onPress={()=> SetTripname(Tripname)}
         ></TouchableOpacity>
         <View
           style={{
-            flex: 1,
+            flex: 2,
             backgroundColor: "rgba(256,256,256,1)",
             margin: 0,
-            padding: 20,
-            borderTopEndRadius: 20,
-            borderTopStartRadius: 20,
+            paddingHorizontal: 20,
+            paddingVertical:40,
+            borderTopEndRadius: 10,
+            borderTopStartRadius: 10,
           }}
         >
           <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity onPress={()=> setModalVisible(!isModalVisible) }>
             <Text
               style={{
                 flexDirection: "row",
-                color: Colors.blueColor,
-                fontWeight: "bold",
-                fontSize: 16,
+                color:'#006EE6',
+                fontWeight:FontWeight.fontWeight_500,
+                fontSize: 20,
               }}
             >
               Cancel
             </Text>
+            </TouchableOpacity>
             <Text
               style={{
                 flex: 1,
                 fontSize: 18,
                 color: Colors.blackText,
-                fontWeight: "bold",
+                fontWeight:FontWeight.fontWeight_500,
                 textAlign: "center",
               }}
             >
               Trip Name
             </Text>
             <Text
-              onPress={toggleModal}
+              onPress={()=> SetTripname(TempTripname) || setModalVisible(!isModalVisible)}
               style={{
                 flexDirection: "row",
-                color: Colors.blueColor,
-                fontWeight: "bold",
-                fontSize: 16,
+                color:'#006EE6',
+                fontWeight:FontWeight.fontWeight_500,
+                fontSize: 20,
               }}
             >
               Done
@@ -107,44 +136,51 @@ const CheckoutPage = ({ navigation }) => {
           </View>
           <View
             style={{
-              borderWidth: 2,
-              borderColor: Colors.blueColor,
+              borderWidth: 1,
+              borderColor: '#006EE6',
               borderRadius: 10,
-              padding: 5,
-              marginVertical: 10,
+              padding: 10,
+              marginHorizontal: 10,
+              marginVertical:25,
               flexDirection: "row",
+              alignItems:'center'
             }}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 0, padding: 0 }}
+              style={{ width: 25, height: 25, margin: 0, padding: 0 }}
               source={require("../../../assets/icon/search.png")}
             />
             <TextInput
-              placeholder={Tripname}
+             value={TempTripname}
               placeholderTextColor="#aaa"
-              // onChangeText={onChangeTripname}
+              onChangeText={e => SetTempTripname(e)}
               style={{
                 flex: 1,
-                fontSize: 18,
+                fontSize: 16,
                 marginVertical: 0,
                 marginHorizontal: 10,
                 padding: 0,
                 color: "#111",
               }}
             />
+            <TouchableOpacity style={{ backgroundColor:'#ccc',borderRadius:15, height:25, width:25, justifyContent:'center', alignItems:'center' }}>
+            <Text onPress={()=> SetTempTripname("")} style={{fontSize:18, margin:0, padding:0, color:"#fff", fontWeight:'bold', transform: [{ rotate: "45deg" }]}}>+</Text>
+            </TouchableOpacity>
+            
           </View>
         </View>
       </Modal>
 
       <View style={style.header}>
         <TouchableOpacity
-          style={style.header_backBtn}
+          style={{ marginRight: 20,
+            backgroundColor: "#006EE6",
+          padding:10,
+          borderRadius:30
+          }}
           onPress={() => navigation.goBack()}
         >
-          <Image
-            style={style.header_backBtnImage}
-            source={require("../../../assets/icon/arrowRight.png")}
-          />
+          <AntDesign name="left" size={25} color="#fff"/>
         </TouchableOpacity>
 
         <Text style={style.headerTitle}>Flight</Text>
@@ -152,16 +188,11 @@ const CheckoutPage = ({ navigation }) => {
 
       <View style={style.title_Area}>
         <Text
-          style={{ fontSize: 35, color: "#000", fontWeight: "bold", flex: 1 }}
+          style={{ fontSize: 35, color: "#000", fontWeight:FontWeight.fontWeight_500, flex: 1 }}
         >
           Checkout
         </Text>
-        <TouchableOpacity style={style.header_backBtn}>
-          <Image
-            style={style.header_downBtnImage}
-            source={require("../../../assets/icon/arrowRight.png")}
-          />
-        </TouchableOpacity>
+       
       </View>
 
       <ScrollView style={{ flex: 1 }}>
@@ -183,8 +214,8 @@ const CheckoutPage = ({ navigation }) => {
                 <View
                   style={{
                     alignItems: "flex-start",
-                    marginLeft: 40,
-                    marginVertical: 20,
+                    marginLeft: 60,
+                    marginVertical:15,
                     flex: 1,
                   }}
                 >
@@ -193,49 +224,47 @@ const CheckoutPage = ({ navigation }) => {
                       flex: 1,
                       fontSize: 12,
                       color: Colors.blackText,
-                      fontWeight: "bold",
+                      fontWeight:FontWeight.fontWeight_500,
                       textAlign: "center",
-                      backgroundColor: "#90ee90",
-                      paddingHorizontal: 10,
-                      paddingVertical: 2,
+                      backgroundColor: "#E4F6EF",
+                      paddingHorizontal: 5,
+                      paddingVertical: 1,
                     }}
                   >
-                    New
+                    New trip
                   </Text>
                   <Text
                     style={{
                       flex: 1,
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Colors.blackText,
-                      fontWeight: "bold",
+                      fontWeight:FontWeight.fontWeight_500,
                       textAlign: "center",
+                      marginVertical:5  
                     }}
                   >
-                    Boston Trip
+                    {Tripname}
                   </Text>
                   <Text
                     style={{
                       flex: 1,
-                      fontSize: 14,
+                      fontSize: 16,
                       color: Colors.greyColor1,
-                      fontWeight: "bold",
+                      fontWeight:FontWeight.fontWeight_500,
                       textAlign: "center",
                     }}
                   >
                     Fri, JUl29- Wed, Aug 3
                   </Text>
                 </View>
-                <TouchableOpacity onPress={toggleModal}>
-                  <Image
-                    style={{ width: 30, height: 30 }}
-                    source={require("../../../assets/icon/add.png")}
-                  />
+                <TouchableOpacity onPress={()=> setModalVisible(!isModalVisible)}>
+                 <Text style={{fontWeight:"bold", fontSize:22, color:'#006EE6'}}>+</Text>
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
-              style={{backgroundColor:Colors.blueColor, borderRadius:10, padding:15, alignItems:'center'}}
+                style={{ backgroundColor: '#006EE6', borderRadius: 10, padding: 10, alignItems: 'center', marginVertical:10 }}
                 onPress={() => navigation.navigate("CheckoutPageInfoPage")}>
-              <Text style={{color:Colors.whiteColor, fontWeight:'bold'}}>Add Trip</Text>
+                <Text style={{ color: Colors.whiteColor, fontSize:16}}>Add Trip Details</Text>
               </TouchableOpacity>
             </View>
           ) : (
@@ -294,7 +323,9 @@ const CheckoutPage = ({ navigation }) => {
 };
 
 const style = StyleSheet.create({
-  main__container: { backgroundColor: Colors.whiteColor, flex: 1, padding: 10 },
+  main__container: { backgroundColor: Colors.whiteColor, flex: 1, padding: 20, fontFamily: FontFamily.fontFamily_regular,
+    fontWeight: FontWeight.fontWeight_500,
+   },
 
   header: {
     flexDirection: "row",
@@ -305,23 +336,11 @@ const style = StyleSheet.create({
     flex: 1,
     color: "#006EE6",
     fontWeight: "600",
-    fontSize: 24,
-  },
-  header_backBtn: {
-    marginRight: 10,
-  },
-
-  header_backBtnImage: {
-    backgroundColor: "#006EE6",
-    padding: 5,
-    width: 50,
-    height: 50,
-    borderRadius: 30,
-    transform: [{ rotate: "180deg" }],
+    fontSize: 28,
   },
 
   title_Area: {
-    marginVertical: 10,
+    margin: 20,
     flexDirection: "row",
     alignItems: "baseline",
   },
@@ -330,27 +349,8 @@ const style = StyleSheet.create({
     height: 30,
     transform: [{ rotate: "90deg" }],
   },
-  CheckoutItem: {
-    marginVertical: 15,
-  },
-  checkoutItemsTitle: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  checkoutItemsTitleIndex: {
-    backgroundColor: "#000",
-    justifyContent: "center",
-    alignItems: "center",
-    width: 24,
-    borderRadius: 12,
-    marginRight: 5,
-    height: 24,
-  },
-  checkoutItemsTitletext: {
-    fontSize: 16,
-    color: "#111",
-    fontWeight: "bold",
-  },
+
+  
   CheckoutitemContent: {
     margin: 10,
   },
