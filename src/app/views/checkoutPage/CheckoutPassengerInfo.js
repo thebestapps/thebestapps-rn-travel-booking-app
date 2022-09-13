@@ -30,9 +30,11 @@ export default function CheckoutPassengerInfo({ navigation }) {
     const [isflight, setFlight] = useState(false);
     const [isSummary, setSummary] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isSeatModalVisible, setSeatModalVisible] = useState(false);
     const [isPaymentModalVisible, setPaymentModalVisible] = useState(false);
     const [isSwitch, setisSwitch] = useState(true);
     const [isSwitch2, setisSwitch2] = useState(true);
+    const [showMore , setShowMore] = useState(false)
    
 
     function toggleExpand(index) {
@@ -119,12 +121,14 @@ export default function CheckoutPassengerInfo({ navigation }) {
                         <Image
                             style={
                                 isActive ? {
-                                    width: 20,
-                                    height: 20,
+                                    width: 25,
+                                    height: 25,
+                                    
                                     transform: [{ rotate: "-90deg" }],
                                 } : {
-                                    width: 20,
-                                    height: 20,
+                                    width: 25,
+                                    height: 25,
+                                    opacity:0.5,
                                     transform: [{ rotate: "90deg" }],
                                 }
                             }
@@ -184,7 +188,7 @@ export default function CheckoutPassengerInfo({ navigation }) {
                         <Text
                             style={{
                                 flex: 1,
-                                fontSize: 18,
+                                fontSize: 22,
                                 color: Colors.blackText,
                                 fontWeight:FontWeight.fontWeight_500,
                                 textAlign: "center",
@@ -215,7 +219,7 @@ export default function CheckoutPassengerInfo({ navigation }) {
                         style={{
 
                             fontSize: 22,
-                            marginVertical: 20,
+                            margin: 20,
 
                             padding: 0,
                             color: "#111",
@@ -254,6 +258,24 @@ export default function CheckoutPassengerInfo({ navigation }) {
                 <PaymentMethod/>
 
                 </View>
+            
+            </Modal>
+
+
+
+
+            <Modal
+                isVisible={isSeatModalVisible}
+                style={{
+                    flex: 1,
+                    justifyContent: "flex-end",
+                    backgroundColor: "#fff",
+                    margin: 0,
+                    padding: 0,
+                }}
+
+            >
+              <Text>HEllo</Text>
             
             </Modal>
 
@@ -586,9 +608,10 @@ export default function CheckoutPassengerInfo({ navigation }) {
                             <Text style={{ marginVertical: 10, color: '#111', fontWeight:FontWeight.fontWeight_500, fontSize: 20, }} >Share my info with airline</Text>
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={{ flex: 1, marginVertical: 10, color: '#111', fontSize: 16, }} >Why share my info?</Text>
-                                <Text style={{ marginVertical: 10, color: '#006EE6', fontWeight:FontWeight.fontWeight_500, fontSize: 16, }} >show more</Text>
+                                <Text onPress={()=> setShowMore(!showMore)} style={{ marginVertical: 10, color: '#006EE6', fontWeight:FontWeight.fontWeight_500, fontSize: 16, }} >{showMore ? "show less" : " Show more"}</Text>
                             </View>
-                            <Text style={{
+
+                            {showMore ? <Text style={{
                                 marginVertical: 10, fontSize: 16,
                                 color: Colors.blackText,
                                 lineHeight:23
@@ -604,7 +627,8 @@ export default function CheckoutPassengerInfo({ navigation }) {
                                 trip. Unchecking the box will not affect your trip
                                 update notifications from TripActions.
 
-                            </Text>
+                            </Text> : <></>}
+                            
                             <View style={{ flex: 1, marginVertical: 20, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
 
 
@@ -846,8 +870,9 @@ export default function CheckoutPassengerInfo({ navigation }) {
                                     <Text style={{ fontSize: 16, flex: 1 }} >Not</Text>
                                 </View>
 
-                                <TouchableOpacity onPress={() => navigation.navigate('CheckoutPageInfoPage')} style={{flex:1, borderLeftWidth:2,alignItems:'center', paddingHorizontal:5, borderColor:"#bbb"}}>
+                                <TouchableOpacity onPress={() => setSeatModalVisible(!isSeatModalVisible)} style={{flex:1, borderLeftWidth:2,alignItems:'center', paddingHorizontal:5, borderColor:"#bbb"}}>
                                     <Image
+                    
                                         style={{ width: 30, height: 30 }}
                                         source={require("../../../assets/icon/edit.png")}
                                     />

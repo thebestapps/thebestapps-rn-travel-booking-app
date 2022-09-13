@@ -132,7 +132,7 @@ export default function CheckuoutFlightDetails({ navigation }) {
                         <Text
                             style={{
                                 flex: 1,
-                                fontSize: 18,
+                                fontSize: 22,
                                 color: Colors.blackText,
                                 fontWeight:FontWeight.fontWeight_500,
                                 textAlign: "center",
@@ -163,7 +163,7 @@ export default function CheckuoutFlightDetails({ navigation }) {
                         style={{
 
                             fontSize: 22,
-                            marginVertical: 20,
+                            margin: 20,
 
                             padding: 0,
                             color: "#111",
@@ -455,7 +455,7 @@ export default function CheckuoutFlightDetails({ navigation }) {
                                     >
                                         Give your manager a reason
                                     </Text>
-                                    <Text style={{ fontSize: 16, margin: 0, padding: 0, color: Colors.blackColor, }}>{reason}</Text>
+                                    {reason!="" ? <Text style={{ fontSize: 16, margin: 0, padding: 0, color: Colors.blackColor, }}>{reason}</Text> :<></>}
                                 </View>
 
                                 {reason == "" ? (
