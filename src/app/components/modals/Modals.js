@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { View, Modal, FlatList, Text, Pressable, TouchableOpacity, Image, StyleSheet, ScrollView} from 'react-native';
-
+import { View, Dimensions, FlatList, Text, Pressable, TouchableOpacity, Image, StyleSheet, ScrollView} from 'react-native';
+import Modal from "react-native-modal";
 import { Colors } from "../../../theme/Colors";
 import { FontSizes } from "../../../theme/FontSize";
-import Chips from '../form-elements/chips/Chips';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import CheckBox from '@react-native-community/checkbox';
 import SearchBar from '../form-elements/searchBar/SearchBar';
 import AddUserModal from './AddUserModal';
 
 import global from '../../../global';
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const Modals = ({open, setOpen, list, setData, traveler, title, type}) => {
   const [addUserOpen, setAddUserOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -21,7 +24,6 @@ const Modals = ({open, setOpen, list, setData, traveler, title, type}) => {
         {data.location ?
           <Pressable onPress={() => {setData(data);  setOpen(!open);}}>
             <Text style={style.model__itemText}>{data.location}</Text>
-            {/* <View style={global.divider} /> */}
           </Pressable>
         :
         <Pressable onPress={() => {data.selected = !data.selected; setData(data);}}>
@@ -60,66 +62,41 @@ const Modals = ({open, setOpen, list, setData, traveler, title, type}) => {
 
   return (
     <Modal
-      animationType="slide"
-      transparent={true}
-      visible={open}
-      onRequestClose={() => {
-        // setOpen(!open);
-      }}
+      animationInTiming={800}
+      isVisible={open} style={{height:windowHeight, width: "94%", justifyContent:"center", alignSelf:"center"}} backdropOpacity={0.8} useNativeDriver={true}
     > 
     <AddUserModal open={addUserOpen} setOpen={setAddUserOpen} setData={addUserHandler} title="New Traveler"/>
     <View style={style.modal}>
-      {/* <ActionBar /> */}
       <View style={style.modal__header}>
         <TouchableOpacity onPress={() => setOpen(!open)}>
-          <Image 
-            style={style.modal__backBtn}
-            source={require("../../../assets/icon/previous.png")}/>
+          <Ionicons name="arrow-back" size={33} color="#006EE6" />
         </TouchableOpacity>
         <Text style={style.modal__title}>{title}</Text>
         <TouchableOpacity onPress={() => setAddUserOpen(true)}>
-          <Text style={style.modal__addBtn}>Add</Text>
+          <View style={{flexDirection:"row", alignItems:"center"}}>
+            <Text style={style.modal__addBtn}>Traveler</Text>
+            <Entypo name="plus" size={22} color="#006EE6" />
+          </View>
         </TouchableOpacity>
       </View> 
       <SearchBar name={"query"} value={query} onChangeText={(e) => setQuery(e)} placeholder={`Search ${type}`} />
-      {/* {
-        (title === "Traveler" || title === "Guests") &&
-        <View style={{width: "100%"}} >
-          <Text style={{marginBottom: 5}}>Selected</Text>
-          <View style={style.modal__chip}>
-            <ScrollView horizontal={true}>
-              {traveler.map((item , index) => (
-                <Chips title={item.name} onDelete={delUserHandler} id={item.id}/>
-              ))}
-            </ScrollView>
-          </View>
-        </View>
-      } */}
       <View style={{width: "100%"}} >
       {query === ""
       ?
       <>
-        <Text>Recent</Text>
-        <View style={global.divider} />      
-          <View style={style.modal__content}>
-            <FlatList
-              data={list}
-              renderItem={renderItem}
-              keyExtractor={item => item.name}
-            />
-          </View>
-      </>
-      : 
-      <>
-      <Text>Results</Text>
-      <View style={global.divider} />      
-        {/* <View style={style.modal__content}>
+        <Text style={{marginTop:"5%", marginLeft: 10, marginBottom: "2%"}}>Recent</Text>  
+        <View style={style.modal__content}>
           <FlatList
             data={list}
             renderItem={renderItem}
             keyExtractor={item => item.name}
           />
-       </View> */}
+        </View>
+      </>
+      : 
+      <>
+      <Text >Results</Text>
+      <View style={global.divider} />
       </>
       }
         </View>
@@ -131,44 +108,39 @@ const Modals = ({open, setOpen, list, setData, traveler, title, type}) => {
 const style = StyleSheet.create({
   modal: {
     display: "flex",
-    flexDirection: "column",
     flex: 1,
-    paddingLeft: 12,
-    paddingRight: 10,
-    backgroundColor: Colors.background,
+    height: "60%",
+    paddingLeft: 15,
+    paddingRight: 15,
     alignItems: "center",
+    backgroundColor:"#fff",
+    borderRadius: 20
   },
   modal__header: {
-    width: "100%",
-    height: 72,
-    ...global.flexRowCenterSB
+    width:"100%",
+    flexDirection:"row",
+    marginBottom: 25,
+    marginTop: 20,
+    justifyContent:"space-between"
   },
   modal__backBtn: {
     width: 32,
     height: 32,
   },
   modal__title: {
-    position: "absolute",
-    top: 22,
-    width: 380,
-    left: 0,
-    zIndex: -1,
-    textAlign: "center",
-    fontSize: FontSizes.fontSize_lg,
-    fontWeight: "600",
-    color: Colors.blackText,
-    margin: "auto", 
+    fontSize: 17,
+    fontWeight:"bold",
+    color:"#000", 
+    marginLeft: 35
   },
   modal__addBtn: {
-    fontSize: FontSizes.fontSize_lg,
-    fontWeight: "600",
-    color: Colors.blackText,
-    margin: "auto", 
+    fontSize: 17,
+    fontWeight:"bold",
+    color:"#006EE6"
   },  
   modal__content: {
     backgroundColor: Colors.whiteColor,
     width: "100%",
-    height: "100%",
     alignItems: "center",
   }, 
   modal__item: {

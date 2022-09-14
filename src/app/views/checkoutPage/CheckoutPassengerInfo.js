@@ -18,10 +18,8 @@ import AppContext from "../../context/AppContext";
 import Modal from "react-native-modal";
 import PaymentMethod from "../../components/payment/PaymentMethod";
 export default function CheckoutPassengerInfo({ navigation }) {
-
+    
     const { firstTrip, secondTrip } = useContext(AppContext)
-
-
     const [isTripinfo, setisTripinfo] = useState(false);
     const [Tripname, SetTripname] = useState("Boston Trip");
     const [TempTripname, SetTempTripname] = useState("Boston Trip");
@@ -237,21 +235,19 @@ export default function CheckoutPassengerInfo({ navigation }) {
                     margin: 0,
                     padding: 0,
                 }}
-
+                animationInTiming={800}
+                backdropOpacity={0.8}
+                useNativeDriver={true}
             >
-                <View style={{flex:0.8, backgroundColor:'#fff',  margin: 0,
-                        
-                        paddingVertical: 40,
-                        borderTopEndRadius: 10,
-                        borderTopStartRadius: 10,}}>
-                                        <View style={{ flexDirection:"row", justifyContent:"space-between", marginHorizontal:10}}>
-                                            <TouchableOpacity onPress={()=> setPaymentModalVisible(!isPaymentModalVisible)}>
-                                                <Text style={{color: "#006EE6", marginLeft: 5}}>Cancel</Text>
-                                            </TouchableOpacity>
-                                            <Text style={{color:"black", fontWeight:"bold", marginLeft: -45}}>New Payment Method</Text>
-                                            <View/>
-                                        </View>
-                <PaymentMethod/>
+                <View style={{flex:0.93, backgroundColor:'#fff',  margin: 0, paddingVertical: 40, borderTopEndRadius: 20, borderTopStartRadius: 20}}>
+                    <View style={{ flexDirection:"row", justifyContent:"space-between", marginHorizontal:10}}>
+                        <TouchableOpacity onPress={()=> setPaymentModalVisible(!isPaymentModalVisible)}>
+                            <Text style={{color: "#006EE6", marginLeft: 5, fontSize: 16}}>Cancel</Text>
+                        </TouchableOpacity>
+                        <Text style={{color:"black", fontWeight:"bold", marginLeft: -45, fontSize: 16}}>New Payment Method</Text>
+                        <View/>
+                    </View>
+                <PaymentMethod />
 
                 </View>
             
@@ -743,10 +739,6 @@ export default function CheckoutPassengerInfo({ navigation }) {
                             </View>
 
                             <Text style={{ marginVertical: 20, color: '#111', fontWeight:FontWeight.fontWeight_500, fontSize: 20, }} >Payment method</Text>
-
-
-
-
                             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10, }}>
                                 <Text style={{ color: '#006EE6', fontWeight:FontWeight.fontWeight_500, fontSize: 16, flex: 1 }} >Add Payment method</Text>
                                 <TouchableOpacity onPress={()=> setPaymentModalVisible(!isPaymentModalVisible)}>
@@ -754,14 +746,7 @@ export default function CheckoutPassengerInfo({ navigation }) {
                                 <Text  style={{ color: '#006EE6', fontWeight:FontWeight.fontWeight_500, fontSize: 28, }} >+</Text>
                                 </TouchableOpacity>
                             </View>
-
-
-
-
-
-
                             <Text style={{ marginVertical: 20, color: '#111', fontWeight:FontWeight.fontWeight_500, fontSize: 20, }} >Passenger info</Text>
-
                             <View
                                 style={{
                                     flexDirection: "row",

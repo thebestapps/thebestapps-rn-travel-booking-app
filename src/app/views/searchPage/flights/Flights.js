@@ -182,9 +182,9 @@ const Flights = () => {
         {/* Date Picker */}
         <DatePicker2
           startName="departure"
-          startDefaultValue="Departure"
+          startDefaultValue="Select"
           endName="return"
-          endDefaultValue="Return"
+          endDefaultValue="Dates"
           name="dates"
           value={formData.dates}
           onChange={setData}

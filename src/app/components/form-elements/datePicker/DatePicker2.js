@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Modal } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import CalendarPicker from 'react-native-calendar-picker';
-
+import RBSheet from "react-native-raw-bottom-sheet";
+import Modal from "react-native-modal";
 import { Colors } from '../../../../theme/Colors';
 import { FontSizes } from '../../../../theme/FontSize';
 import global from '../../../../global';
-import Button3 from '../button/Button3';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const DatePicker2 = ({startName, startDefaultValue, endName, endDefaultValue, value, onChange, name, type}) => {
+const DatePicker2 = ({startDefaultValue, endDefaultValue, value, onChange, name, type}) => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [StartDate, setStartDate] = useState(null);
@@ -16,6 +17,10 @@ const DatePicker2 = ({startName, startDefaultValue, endName, endDefaultValue, va
   const onDateChange = (date, e) => {
     if (e === 'END_DATE') {
       setEndDate(date.toString()?.slice(0, 15));
+      setTimeout(() => {
+        setOpen(!open);
+    }, 2000);
+      
     } else {
       setEndDate((type == "cars") ? "" : null);
       setStartDate(date.toString()?.slice(0, 15));
@@ -31,7 +36,6 @@ const DatePicker2 = ({startName, startDefaultValue, endName, endDefaultValue, va
       onChange({ departure: StartDate, return: EndDate}, name)
     }
   },[StartDate, EndDate])
-
   return (
     <TouchableOpacity onPress={() => setOpen(true)}>
       <View style={{ ...style.datePicker, minWidth: (type === "cars") ? "50%" : "100%" }}>
@@ -48,47 +52,43 @@ const DatePicker2 = ({startName, startDefaultValue, endName, endDefaultValue, va
           { (type !== "cars") &&
               ((value.return === "")
               ?
-                <Text style={style.datePicker__title}>{" - "}{endDefaultValue}</Text>
+                <Text style={style.datePicker__title}>{" "}{endDefaultValue}</Text>
               :
                 <Text style={{ ...style.datePicker__title, color: Colors.blackText }}>{" - "}{value.return}</Text>)
           }
       </View>
       {open && 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={open}
-          onRequestClose={() => {
-            
-          }}
-        >
-          <View style={style.centeredView}>
-            <View style={style.modalView}>
-              <Text style={style.datePicker__title}>Select Dates</Text>
-              <View style={{marginTop: 100}}> 
-              <CalendarPicker
+        <Modal avoidKeyboard={true} animationInTiming={750} isVisible={open} style={{justifyContent:"center", alignSelf:"center"}} backdropOpacity={0.8} useNativeDriver={true}>
+          <View style={{backgroundColor:"white", height: 350, paddingTop: 20, borderRadius: 15}}>
+            <CalendarPicker
                 startFromMonday={true}
                 allowRangeSelection={type === "cars" ? false : true}
                 minDate={new Date()}
-                maxDate={new Date(2050, 6, 3)}
+                maxDate={new Date(2023, 9, 12)}
+                previousComponent={
+                  <Ionicons name="arrow-back-circle" size={35} color="#006EE6" />
+                }
+                nextComponent={
+                  <Ionicons name="arrow-forward-circle" size={35} color="#006EE6" />
+                }
+                yearTitleStyle={{
+                  fontWeight:"bold"
+                }}
                 previousTitle="Previous"
                 nextTitle="Next"
-                todayBackgroundColor="#fcd6cc"
-                selectedDayColor="#faa691"
-                selectedDayTextColor="#000000"
-                scaleFactor={375}
+                selectedDayColor="#006EE6"
+                selectedDayTextColor="white"
+                width={370}
+                selectedDayStyle={{
+                  color:"white"
+                }}
+                minRangeDuration={1}
                 textStyle={{
                     fontFamily: 'Cochin',
                     color: '#000000',
                 }}
                 onDateChange={onDateChange}
             />
-            </View>
-            <Text style={{marginTop: 50, color: Colors.blackText}}>{StartDate}{" - "}{EndDate}</Text>
-              <View style={style.findBtn}>
-                <Button3 title="Select Dates" onPress={() => setOpen(!open)}/>
-              </View>
-            </View>
           </View>
          </Modal>
         }
@@ -121,23 +121,12 @@ const style = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
+
   },
   modalView: {
-    margin: 20,
-    height: "100%",
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
+    width:"95%",
+    backgroundColor:"white"
   },
   findBtn: {
     width: 470,

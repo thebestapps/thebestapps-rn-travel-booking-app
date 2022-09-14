@@ -32,7 +32,8 @@ const LocationPicker = ({destination, source, onSwitch, onChange, list, type, ca
         type={type}
         traveler={[]}
         setData={setLocation} 
-        title={mode === 0 ? "Source" : "Destination"}/>
+        title={mode === 0 ? "Source" : "Destination"}
+      />
       <Pressable 
         style={style.locPicker__side} 
         onPress={() => {
