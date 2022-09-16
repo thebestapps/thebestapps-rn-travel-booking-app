@@ -20,8 +20,6 @@ import Modal from "react-native-modal";
 export default function CheckuoutFlightDetails({ navigation }) {
 
     const { firstTrip, secondTrip } = useContext(AppContext)
-
-
     const [isTripinfo, setisTripinfo] = useState(true);
     const [Tripname, SetTripname] = useState("Boston Trip");
     const [TempTripname, SetTempTripname] = useState("Boston Trip");
@@ -33,8 +31,6 @@ export default function CheckuoutFlightDetails({ navigation }) {
     const [isSwitch, setisSwitch] = useState(true);;
     const [isAlert, setisAlert] = useState(false)
     
-
-
     const CheckoutItemTitle = ({ index, title, isActive }) => {
         return (
             <View style={isActive ? {} : { marginVertical: 20 }}>
@@ -79,7 +75,6 @@ export default function CheckuoutFlightDetails({ navigation }) {
             </View>
         );
     };
-
 
 
     const toggleModal = () => {
@@ -472,6 +467,7 @@ export default function CheckuoutFlightDetails({ navigation }) {
                                 )
                                 }
                             </View>
+                            
 
 
 
