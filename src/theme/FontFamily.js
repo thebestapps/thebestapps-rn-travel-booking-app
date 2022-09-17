@@ -9,4 +9,5 @@ export const FontWeight = {
   fontWeight_300: "300",
   fontWeight_400: "400",
   fontWeight_500: "500",
+  fontWeight_600:"600"
 };

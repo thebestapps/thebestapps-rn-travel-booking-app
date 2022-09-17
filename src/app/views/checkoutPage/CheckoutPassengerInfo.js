@@ -7,14 +7,17 @@ import {
     Image,
     ScrollView,
     Button,
+    FlatList,
     TextInput,
 } from "react-native";
 import { Colors } from "../../../theme/Colors";
 import { FontFamily, FontWeight } from "../../../theme/FontFamily";
 import SwitchToggle from "react-native-switch-toggle";
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
+import Entypo from 'react-native-vector-icons/Entypo'
 import AppContext from "../../context/AppContext";
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Modal from "react-native-modal";
 import PaymentMethod from "../../components/payment/PaymentMethod";
 export default function CheckoutPassengerInfo({ navigation }) {
@@ -31,11 +34,701 @@ export default function CheckoutPassengerInfo({ navigation }) {
     const [isSummary, setSummary] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false);
     const [isSeatModalVisible, setSeatModalVisible] = useState(false);
+    const [isSeatSelectionModalVisible, setSeatSelectionModalVisible] = useState(false);
     const [isPaymentModalVisible, setPaymentModalVisible] = useState(false);
     const [isSwitch, setisSwitch] = useState(true);
     const [isSwitch2, setisSwitch2] = useState(true);
-    const [showMore , setShowMore] = useState(false)
-   
+    const [showMore , setShowMore] = useState(false);
+    const [seaSelected , setSeatSelected ] = useState("Choose");
+    const [ShowLEgend, setShowLEgend] = useState(false);
+    
+    
+    const SeatsData = [
+        [
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "A6",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "A7",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "A8",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "A9",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "FleetBlocked",
+            "_Code": "A10",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "FleetBlocked",
+            "_Code": "A11",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE",
+                "EXITROW"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "A12",
+            "_Premium": "false",
+            "_Exitrow": "true"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "A13",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "A14",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "A15",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "A16",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "A17",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "A18",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "A19",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          }
+        ],
+        [
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "C6",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "C7",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "C8",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "C9",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "C10",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "C11",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE",
+                "EXITROW"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "C12",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "C13",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "C14",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "C15",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "C16",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "C17",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "C18",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "LEFTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "C19",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          }
+        ],
+        [
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "D6",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "D7",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "D8",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "D9",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "D10",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "D11",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE",
+                "EXITROW"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "D12",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "D13",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "D14",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "D15",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "D16",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "D17",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "D18",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "AISLE",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "D19",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          }
+        ],
+        [
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "F6",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "F7",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "F8",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "F9",
+            "_Premium": "true",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "F10",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "F11",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE",
+                "EXITROW"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "F12",
+            "_Premium": "false",
+            "_Exitrow": "true"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "F13",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "F14",
+            "_Premium": "false",
+            "_Exitrow": "true"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "F15",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Blocked",
+            "_Code": "F16",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "F17",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "F18",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          },
+          {
+            "Situations": {
+              "Situation": [
+                "WINDOW",
+                "RIGHTSIDE"
+              ]
+            },
+            "_Avail": "Open",
+            "_Code": "F19",
+            "_Premium": "false",
+            "_Exitrow": "false"
+          }
+        ]
+      ]
 
     function toggleExpand(index) {
         if (index == "1") {
@@ -46,8 +739,7 @@ export default function CheckoutPassengerInfo({ navigation }) {
             setFlight(!isflight);
         }
     }
-
-
+    console.log(seaSelected);
     const CheckoutItemTitle = ({ index, title, isActive, isDone }) => {
         return (
             <View style={{marginVertical:20}}>
@@ -140,15 +832,167 @@ export default function CheckoutPassengerInfo({ navigation }) {
         );
     };
 
-
-
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
 
 
+
+    const renderSeatCount = ({item})=>( 
+        
+        <View style={{width:50, height:50, margin:5, justifyContent:'center', alignItems:'center'}}>
+                <Text style={{fontSize:20, fontWeight:FontWeight.fontWeight_600}}>{item._Code.substring(1,4)}</Text>
+        </View>
+      );
+     
+   
+    
+const renderItem = ({item})=>( 
+
+    <>
+    {
+        item._Code==seaSelected ? (
+            <>
+
+            {
+                item._Exitrow == "true" ? (
+
+                        <View style={{margin:5}}>
+                                {
+                                    item._Code.substring(0,1) != "A" ? ( 
+                                       
+                                    <TouchableOpacity onPress={()=> setSeatSelected(item._Code) }>
+                                    <View style={{ backgroundColor:'#FF0202', height:5, width:50, borderRadius:7, marginBottom:3}}></View>
+                                    <View style={{backgroundColor:'#3C8250', height:50, width:50, borderRadius:7} }></View>
+                                    </TouchableOpacity>
+                                    )
+                                    :(
+                                        
+                                    <TouchableOpacity onPress={()=> setSeatSelected(item._Code) }>
+                                    <View style={{ backgroundColor:'#3C8250', height:50, width:50, borderRadius:7} }></View>
+                                    <View style={{ backgroundColor:'#FF0202', height:5, width:50, borderRadius:7, marginTop:3}}></View>
+                                    </TouchableOpacity>
+                                    )
+                                }   
+                        </View>
+
+
+                ) : (
+                    <TouchableOpacity onPress={()=> setSeatSelected(item._Code) } style={{margin:5}}>
+            <View style={  item._Code.substring(0,1) != "A" ? { backgroundColor:'#3C8250', height:50, width:50,  marginTop:8, borderRadius:7,} :  { backgroundColor:'#3C8250', height:50, width:50, marginBottom:8, borderRadius:7} }></View>
+            </TouchableOpacity>
+                )
+            }
+            </>
+            
+        ):
+        (
+            <View style={{ margin:5}}>
+            {item._Avail == "Open" ? (  
+    
+                <View >
+                {
+                    item._Premium !="true" ? (
+
+    
+                        <View >
+                                {
+                            item._Exitrow == "true" ? (
+
+                                <View>
+
+                                    {
+                                        item._Code.substring(0,1) != "A" ?  
+                                        (
+                                            <TouchableOpacity  onPress={()=> setSeatSelected(item._Code) }>
+                                            <View style={{ backgroundColor:'#FF0202', height:5, width:50, borderRadius:7, marginBottom:3}}></View>
+                                <View style={{ backgroundColor:'#7CBDF9', height:50, width:50, borderRadius:7,}}></View>
+                                            </TouchableOpacity>
+                                        ) :
+                                        (
+                                            <TouchableOpacity  onPress={()=> setSeatSelected(item._Code) }>
+                                            <View style={{ backgroundColor:'#7CBDF9', height:50, width:50, borderRadius:7,}}></View>
+                                            <View style={{ backgroundColor:'#FF0202', height:5, width:50, borderRadius:7, marginTop:3}}></View>
+                                            </TouchableOpacity>
+                                        )
+                                                              }
+                                
+                                </View>
+                            ) : (
+                                <TouchableOpacity onPress={()=> setSeatSelected(item._Code) }>
+                                <View style={  item._Code.substring(0,1) != "A" ? { backgroundColor:'#7CBDF9', height:50, width:50, borderRadius:7, marginTop:8} :  { backgroundColor:'#7CBDF9', height:50, width:50, borderRadius:7, marginBottom:8} }></View>
+                                </TouchableOpacity>
+                            )
+                        }   
+                        </View>
+                     )
+                     :
+                     (
+                     <TouchableOpacity onPress={()=> setSeatSelected(item._Code) } style={ item._Code.substring(0,1) != "A" ?  { backgroundColor:'#7CBDF9', height:50, width:50, borderRadius:7, padding:0, marginTop:8, alignItems:'center', justifyContent:'center'}: { backgroundColor:'#7CBDF9', height:50, width:50, borderRadius:7, padding:0, marginBottom:8, alignItems:'center', justifyContent:'center'} }>
+                        <Entypo name="star-outlined" color="#fff" size={35} style={{margin:0, padding:0}}/>
+                    </TouchableOpacity> 
+                     )
+                }
+                </View>
+                
+            )
+                    :
+                    (
+                    <View>
+                        {
+                            item._Exitrow == "true" ? (
+
+                                <>
+                                {
+                                     item._Code.substring(0,1) != "A" ?  
+                                     (
+                                        <>
+                                        <View style={{ backgroundColor:'#FF0202', height:5, width:50, borderRadius:7}}></View>
+                                        <View style={{ backgroundColor:'#C9CACA', height:50, width:50, borderRadius:7, padding:0, marginTop:3}}>
+                                        <AntDesign name="close" color="#fff" size={50} style={{margin:0, padding:0}}/>
+                                    </View>
+
+                                    </>
+                                    )
+                                    :(
+                                        <>
+                                        
+                                    <View style={{ backgroundColor:'#C9CACA', height:50, width:50, borderRadius:7, padding:0, marginBottom:3}}>
+                                                            <AntDesign name="close" color="#fff" size={50} style={{margin:0, padding:0}}/>
+                                                        </View>
+                                                        <View style={{ backgroundColor:'#FF0202', height:5, width:50, borderRadius:7, marginBottom:3}}></View>
+                                        </>
+                                    )
+                                }
+                                
+                                
+                                </>
+                                
+                            ) : (
+                                <View style={ item._Code.substring(0,1) != "A" ? { backgroundColor:'#C9CACA', height:50, width:50, borderRadius:7, padding:0, marginTop:8}: { backgroundColor:'#C9CACA', height:50, width:50, borderRadius:7, padding:0, marginBottom:8}}>
+                        <AntDesign name="close" color="#fff" size={50} style={{margin:0, padding:0}}/>
+                    </View>
+                  
+    
+                            )
+                        }
+                    </View>
+                    
+                    ) 
+            }
+             </View>
+        )
+
+    }
+    </>   
+        
+      );
+     
+  
+
     return (
         <View style={style.main__container}>
+          
             <Modal
                 isVisible={isModalVisible}
                 style={{
@@ -230,8 +1074,6 @@ export default function CheckoutPassengerInfo({ navigation }) {
                 </View>
             </Modal>
 
-
-
             <Modal
                 isVisible={isPaymentModalVisible}
                 style={{
@@ -261,9 +1103,6 @@ export default function CheckoutPassengerInfo({ navigation }) {
             
             </Modal>
 
-
-
-
             <Modal
                 isVisible={isSeatModalVisible}
                 style={{
@@ -271,15 +1110,249 @@ export default function CheckoutPassengerInfo({ navigation }) {
                     justifyContent: "flex-end",
                     backgroundColor: "#fff",
                     margin: 0,
-                    padding: 0,
+                    padding: 10,
                 }}
 
             >
-              <Text>HEllo</Text>
+              <View style={{flexDirection:"row", alignItems:'center', justifyContent:'center', position:'relative',  }}>
+                <Feather name="arrow-left" size={25} color="#006EE6" onPress={()=> setSeatModalVisible(!isSeatModalVisible)}/> 
+                
+                <Text style={{flex:1, textAlign:'center', color:'#111', fontWeight:FontWeight.fontWeight_600, fontSize:18}}>Seat Assignments</Text>
+              </View>
+
+              <View style={{padding:1, backgroundColor:'#ddd', marginVertical:20}}/>
+              <View style={{flex:1}}> 
+
+
+              <View style={{ flexDirection: 'row', marginVertical: 0}}>
+                                <View style={{ padding: 10, borderRadius:5, backgroundColor:'#ddd'}}>
+
+                                    
+                                <Image
+                                    style={{ width: 40, height: 40, }}
+                                    source={require("../../../assets/icon/flight_detail.png")}
+                                    />
+                                </View>
+                                <View style={{ marginHorizontal:10,}}>
+                                    <Text style={{ color: '#aaa', fontSize: 14, marginRight:20 }} >8:05am</Text>
+                                    <View style={{flexDirection:'row', alignItems:'center'}}>
+
+                                    <Text style={{ color: '#111', fontSize: 18, flex:1, alignItems:'flex-end' }} >{firstTrip.substring(0, 3)}</Text>
+                                    <Feather name="arrow-right" size={18} color="#111"/> 
+                                    </View>
+                                    <Text style={{ color: '#aaa', fontSize: 14, }} >Friday Sep, 16</Text>
+                                </View>
+                                <View style={{ flex: 1, marginRight: 10 }}>
+                                <Text style={{ color: '#aaa', fontSize: 14, }} >8:05am</Text>
+                                    <Text style={{color: '#111', fontSize: 18, }} >{firstTrip.substring(0, 3)}</Text> 
+                                     
+                                </View>
+                                <View style={{ marginHorizontal: 10, flexDirection:'row', alignItems:'center'}}>
+                                    <TouchableOpacity onPress={()=> setSeatSelectionModalVisible(!isSeatSelectionModalVisible)}>
+                                            <Text style={{ color: '#006EE6', fontWeight:FontWeight.fontWeight_600, fontSize: 18, }} >{seaSelected}</Text>
+                                    </TouchableOpacity>
+                                    
+                                    <AntDesign name="right" size={16} color="#aaa"/>
+                                </View>
+
+
+                            </View>
+
+                            <View style={{padding:1, backgroundColor:'#eee', marginVertical:20}}/>
+
+
+                            <View style={{ flexDirection: 'row', marginVertical: 0}}>
+                                <View style={{ padding: 10, borderRadius:5, backgroundColor:'#ddd'}}>
+
+                                    
+                                <Image
+                                    style={{ width: 40, height: 40, }}
+                                    source={require("../../../assets/icon/flight_detail.png")}
+                                    />
+                                </View>
+                                <View style={{ marginHorizontal:10,}}>
+                                    <Text style={{ color: '#aaa', fontSize: 14, marginRight:20 }} >8:05am</Text>
+                                    <View style={{flexDirection:'row', alignItems:'center'}}>
+
+                                    <Text style={{ color: '#111', fontSize: 18, flex:1, alignItems:'flex-end' }} >{firstTrip.substring(0, 3)}</Text>
+                                    <Feather name="arrow-right" size={18} color="#111"/> 
+                                    </View>
+                                    <Text style={{ color: '#aaa', fontSize: 14, }} >Friday Sep, 16</Text>
+                                </View>
+                                <View style={{ flex: 1, marginRight: 10 }}>
+                                <Text style={{ color: '#aaa', fontSize: 14, }} >8:05am</Text>
+                                    <Text style={{color: '#111', fontSize: 18, }} >{firstTrip.substring(0, 3)}</Text> 
+                                     
+                                </View>
+                                <View style={{ marginHorizontal: 10, flexDirection:'row', alignItems:'center'}}>
+                                    <Text style={{ color: '#006EE6', fontWeight:FontWeight.fontWeight_600, fontSize: 18, }} >Choose</Text>
+                                    <AntDesign name="right" size={16} color="#aaa"/>
+                                </View>
+
+
+                            </View>
+
+              </View>
             
             </Modal>
 
+            <Modal
+                isVisible={isSeatSelectionModalVisible}
+                style={{
+                    flex: 1,
+                    justifyContent: "flex-end",
+                    backgroundColor: "#fff",
+                    margin: 0,
+                    padding: 10,
+                }}
 
+            >
+              <View style={{flexDirection:"row", alignItems:'center', justifyContent:'center', position:'relative', }}>
+
+               
+              <TouchableOpacity  onPress={()=> setSeatSelectionModalVisible(!isSeatSelectionModalVisible)}>
+                        <Feather name="arrow-left"  size={25} color="#006EE6"/> 
+                    </TouchableOpacity>
+             
+                <Text style={{flex:1, textAlign:'center', color:'#111', fontWeight:FontWeight.fontWeight_600, fontSize:18}}>Seat Assignments</Text>
+              </View>
+
+              <View style={{padding:1, backgroundColor:'#ddd', marginVertical:20}}/>
+
+            <ScrollView 
+            style={{flexDirection:'row', flex:1,}}
+            horizontal={true}
+           >
+            <View style={{flex:1, flexDirection:'column-reverse',  justifyContent:'center', }}>
+
+      
+                <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                    <Text style={{fontSize:18, fontWeight:FontWeight.fontWeight_500}}>A</Text>
+                    <MaterialCommunityIcons  name="human-male-female" size={35} color="#aaa" style={{ marginHorizontal:10}}/>
+                            <FlatList
+                        style={{margin:0, padding:0,}}
+                        horizontal={true}
+                            scrollEnabled={false}
+                        data={SeatsData[0]}
+                        renderItem={renderItem}
+                        keyExtractor={item => item._Code}
+                    />
+                </View>
+
+
+                <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center',}}>
+                    <Text style={{fontSize:18, fontWeight:FontWeight.fontWeight_500}}>C</Text>
+                    <MaterialCommunityIcons  name="human-male-female" size={35} color="#aaa" style={{ marginHorizontal:10}}/>
+                            <FlatList
+                        style={{margin:0, padding:0,}}
+                        horizontal={true}
+                            scrollEnabled={false}
+                        data={SeatsData[1]}
+                        renderItem={renderItem}
+                        keyExtractor={item => item._Code}
+                    />
+                </View>
+
+
+                <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center', }}>
+                    
+                            <FlatList
+                        style={{margin:0, padding:0, marginLeft:70}}
+                        horizontal={true}
+                            scrollEnabled={false}
+                        data={SeatsData[2]}
+                        renderItem={renderSeatCount}
+                        keyExtractor={item => item._Code}
+                    />
+                </View>
+                
+
+                <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center', }}>
+                    <Text style={{fontSize:18, fontWeight:FontWeight.fontWeight_500}}>D</Text>
+                    <MaterialCommunityIcons  name="human-male-female" size={35} color="#aaa" style={{ marginHorizontal:10}}/>
+                            <FlatList
+                        style={{margin:0, padding:0,}}
+                        horizontal={true}
+                            scrollEnabled={false}
+                        data={SeatsData[2]}
+                        renderItem={renderItem}
+                        keyExtractor={item => item._Code}
+                    />
+                </View>
+
+                <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center',}}>
+                    <Text style={{fontSize:18, fontWeight:FontWeight.fontWeight_500}}>F</Text>
+                    <MaterialCommunityIcons  name="human-male-female" size={35} color="#aaa" style={{ marginHorizontal:10}}/>
+                            <FlatList
+                        style={{margin:0, padding:0,}}
+                        horizontal={true}
+                            scrollEnabled={false}
+                        data={SeatsData[3]}
+                        renderItem={renderItem}
+                        keyExtractor={item => item._Code}
+                    />
+                </View>
+               
+             
+          
+         
+          </View>
+
+             </ScrollView>
+             <TouchableOpacity onPress={()=> setShowLEgend(!ShowLEgend)}>
+                <MaterialCommunityIcons name="information-outline" size={25} color="red" style={{ padding:15, borderRadius:8, elevation:5,  backgroundColor:"#fff", alignSelf:'flex-end', bottom:20, right:20, marginHorizontal:10}}/>
+             </TouchableOpacity>
+
+            
+            </Modal>
+
+            <Modal
+                isVisible={ShowLEgend}
+                style={{
+                    flex: 1,
+                    justifyContent: "flex-end",
+                    backgroundColor: "transparent",
+                    margin: 0,
+                    padding: 0,
+                }}
+            >
+                <TouchableOpacity
+                    style={{ flex: 1 }}
+                    onPress={()=> setShowLEgend(!ShowLEgend)}
+                ></TouchableOpacity>
+                <View
+                    style={{
+                        backgroundColor: "rgba(256,256,256,1)",
+                        margin: 0,
+                        paddingHorizontal: 20,
+                        paddingVertical: 40,
+                        borderTopEndRadius: 10,
+                        borderTopStartRadius: 10,
+                    }}
+                >
+                    
+                        <Text
+                            style={{
+                                fontSize: 24,
+                                color: Colors.blackText,
+                                fontWeight:FontWeight.fontWeight_600,
+                                
+                            }}
+                        >
+                            Legend
+                        </Text>
+                        
+
+                    <View style={{ padding: 20, marginTop: 10 }}>
+
+
+
+                    </View>
+
+
+
+                </View>
+            </Modal>
 
 
 
