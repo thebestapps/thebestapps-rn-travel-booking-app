@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     Image,
     ScrollView,
-    Button,
     FlatList,
     TextInput,
 } from "react-native";
@@ -39,7 +38,6 @@ export default function CheckoutPassengerInfo({ navigation }) {
     const [showMore , setShowMore] = useState(false);
     const [seaSelected , setSeatSelected ] = useState("Choose");
     const [ShowLEgend, setShowLEgend] = useState(false);
-    
     
     const SeatsData = [
         [
@@ -737,7 +735,7 @@ export default function CheckoutPassengerInfo({ navigation }) {
             setFlight(!isflight);
         }
     }
-    console.log(seaSelected);
+
     const CheckoutItemTitle = ({ index, title, isActive, isDone }) => {
         return (
             <View style={{marginVertical:20}}>
@@ -835,17 +833,15 @@ export default function CheckoutPassengerInfo({ navigation }) {
     };
 
 
-
     const renderSeatCount = ({item})=>( 
         
         <View style={{width:50, height:50, margin:5, justifyContent:'center', alignItems:'center'}}>
                 <Text style={{fontSize:20, fontWeight:FontWeight.fontWeight_600}}>{item._Code.substring(1,4)}</Text>
         </View>
-      );
+    );
      
-   
     
-const renderItem = ({item})=>( 
+    const renderItem = ({item})=>( 
 
     <>
     {
@@ -2003,8 +1999,7 @@ const renderItem = ({item})=>(
                     )}
                 </View>
             </ScrollView>
-            {/* <Text>First Trip Selected: {firstTrip}</Text>
-      <Text>Second Trip Selected: {secondTrip}</Text> */}
+           
             <View></View>
         </View>
     );
