@@ -481,6 +481,10 @@ export default function CheckuoutFlightDetails({ navigation }) {
                                 onPress={() => setisSwitch(!isSwitch)}
                                 circleColorOff='#fff'
                                 circleColorOn='#fff'
+                                containerStyle={{
+                                    width:60, 
+                                    borderRadius:30, padding:2
+                                }}
                                 backgroundColorOn='#006EE6'
                                 backgroundColorOff='#C4C4C4'
                             />
